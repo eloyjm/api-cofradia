@@ -1,0 +1,35 @@
+from fastapi import FastAPI
+from app.db.database import Base,engine
+from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
+from app.routers.hermandades import hermandades_router
+from app.db.models.hermandades import Hermandad
+
+app = FastAPI()
+app.include_router(hermandades_router)
+
+tags_metadata = [
+    {"name": "hermandades"},
+]
+
+def create_tables():
+    try:
+        Base.metadata.create_all(bind=engine)
+    except Exception as e:
+        print("Error al crear las tablas:", e)
+create_tables()
+
+origins = [
+    "http://localhost:3000", 
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+#ARRANQUE
+if __name__ == "__main__":
+    uvicorn.run("main:app", port=8000, reload=True)
