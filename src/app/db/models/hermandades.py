@@ -3,7 +3,7 @@ from sqlalchemy import Column, Enum as EnumColumn, Integer, String
 from app.db.database import Base
 
 class DayEnum(Enum):
-    DR = 'Domingo de resurección'
+    DR = 'Domingo de Ramos'
     LS = 'Lunes Santo'
     MS = 'Martes Santo'
     XS = 'Miércoles Santo'
@@ -23,3 +23,4 @@ class Hermandad(Base):
     description = Column(String)
     colors = Column(String)
     day = Column(EnumColumn(DayEnum))
+    her_id = Column(Integer)

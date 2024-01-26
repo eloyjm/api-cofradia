@@ -3,7 +3,8 @@ from app.db.database import Base,engine
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from app.routers.hermandades import hermandades_router
-from app.db.models.hermandades import Hermandad
+from app.db.migrations.populate_db import populate_database
+
 
 app = FastAPI()
 app.include_router(hermandades_router)
@@ -18,6 +19,8 @@ def create_tables():
     except Exception as e:
         print("Error al crear las tablas:", e)
 create_tables()
+#populate_database()
+
 
 origins = [
     "http://localhost:3000", 
