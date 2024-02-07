@@ -14,7 +14,6 @@ import List from './List';
 const homeName = "Home";
 const cameraName = "Camera";
 const listName = "List";
-
 const Tab = createBottomTabNavigator();
 
 export default function MainContainer({ navigation }) {
@@ -23,7 +22,7 @@ export default function MainContainer({ navigation }) {
             <Tab.Navigator
                 initialRouteName={homeName}
                 screenOptions={({ route }) => ({
-                    tabBarIcon: ({ focused, color, size }) => {
+                    tabBarIcon: ({ focused, size }) => {
                         let iconName;
                         if (route.name === homeName) {
                             iconName = focused ? 'home' : 'home-outline';
@@ -32,31 +31,15 @@ export default function MainContainer({ navigation }) {
                         } else if (route.name === listName) {
                             iconName = focused ? 'list' : 'list-outline';
                         }
-                        return <Ionicons name={iconName} size={size} color={color} />;
+                        return <Ionicons name={iconName} size={size} color={"#990033"} />;
                     },
-
-                    "tabBarActiveTintColor": "#990033",
-                    "tabBarInactiveTintColor": "gray",
-                    "tabBarLabelStyle": {
-                        "paddingBottom": 10,
-                        "paddingTop": 10,
-                        "fontSize": 10,
-                        "fontWeight": "bold"
-                    },
-                    "tabBarStyle": [
-                        {
-                            "display": "flex"
-                        },
-                        null
-                    ]
+                    headerShown: false,
 
                 })}
             >
                 <Tab.Screen name={homeName} component={Home} />
                 <Tab.Screen name={listName} component={List} />
                 <Tab.Screen name={cameraName} component={Camera} />
-
-
             </Tab.Navigator>
         </NavigationContainer>
     );

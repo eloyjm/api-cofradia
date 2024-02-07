@@ -1,16 +1,30 @@
 import * as React from 'react';
 import { Button, Platform, FlatList, SafeAreaView, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { api } from "../login/OAuth"
 
 
-export default function List({navigation}) {
-  dias = ["Domingo de Ramos", "Lunes Santo", "Martes Santo", "Miércoles Santo", "Jueves Santo", "Viernes Santo", "Sábado Santo", "Domingo de Resurrección"];
-  
+export default function DayList({navigation}) {
+    const [hermandades, setHermandades] = React.useState([]);
+    const [error, setError] = React.useState(null);
+
+    useEffect(() => {
+        fetchHermandades();
+    }, []);
+
+    const fetchHermandades = async () => {
+        try {
+            const result = await api().get("/hermandades");
+            setHermandades(result.data);
+            console.log(result.data)
+        } catch (error) {
+            console.error("Error fetching hermandades:", error);
+            setError(`Error: ${JSON.parse(error.request.response).detail}`);
+        }
+    }
+
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.button}
-      onPress={() => navigation.navigate('DayList', { day: item })}
-    >
+    <TouchableOpacity style={styles.button}>
       <Text style={styles.buttonText}>{item}</Text>
     </TouchableOpacity>
   );
@@ -19,7 +33,7 @@ export default function List({navigation}) {
     <SafeAreaView style={styles.container}>
       <View style={{paddingTop: Platform.OS === "android" && 30}}>
       <FlatList
-          data={dias}
+          data={hermandades}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
         />
