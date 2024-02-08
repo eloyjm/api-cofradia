@@ -1,12 +1,13 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Platform, FlatList, SafeAreaView, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { api } from "../login/OAuth"
+import { api } from "./OAuth"
 
 
-export default function DayList({navigation}) {
-    const [hermandades, setHermandades] = React.useState([]);
-    const [error, setError] = React.useState(null);
+export default function DayList({navigation, route}) {
+    const [hermandades, setHermandades] = useState([]);
+    const [error, setError] = useState(null);
+    const {day} = route.params;
 
     useEffect(() => {
         fetchHermandades();
@@ -14,7 +15,7 @@ export default function DayList({navigation}) {
 
     const fetchHermandades = async () => {
         try {
-            const result = await api().get("/hermandades");
+            const result = await api().get(`/hermandades/${day}`);
             setHermandades(result.data);
             console.log(result.data)
         } catch (error) {
@@ -25,19 +26,19 @@ export default function DayList({navigation}) {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.button}>
-      <Text style={styles.buttonText}>{item}</Text>
+      {day && <Text style={styles.buttonText}>{item.name}</Text>}
     </TouchableOpacity>
   );
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={{paddingTop: Platform.OS === "android" && 30}}>
+        <Text style={styles.text}>{day}</Text>
       <FlatList
           data={hermandades}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
         />
-
       </View>
     </SafeAreaView>
   );
