@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { Button, Platform, FlatList, SafeAreaView, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-
 
 export default function List({navigation}) {
   dias = ["Domingo de Ramos", "Lunes Santo", "Martes Santo", "Miércoles Santo", "Jueves Santo", "Viernes Santo", "Sábado Santo", "Domingo de Resurrección"];

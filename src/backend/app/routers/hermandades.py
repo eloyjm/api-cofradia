@@ -45,9 +45,11 @@ def get_hermandades_by_id(db: db_dependency, id: int):
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
     
-@hermandades_router.post('/prediccion', tags=["hermandades"], status_code=status.HTTP_200_OK)
+@hermandades_router.post('/prediction', tags=["hermandades"], status_code=status.HTTP_200_OK)
 def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile = File(...)):
     #try:
+        print(img)
+        print(day)
         predicciones = categorizar(img, day)
         if len(predicciones)==0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha podido predecir")
@@ -62,7 +64,11 @@ def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile 
     
     #except Exception as e:
     #    raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
-    
+
+@hermandades_router.post('/prediction/prueba', tags=["hermandades"], status_code=status.HTTP_200_OK)
+def get_hermandad_prediction(db: db_dependency, file : UploadFile):
+        return {"filename": file.filename}
+
 def categorizar(img: UploadFile, day: DayEnum):
     #try:
         current_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
