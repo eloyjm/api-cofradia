@@ -55,8 +55,10 @@ export default function Prediction({ navigation }) {
         console.log("User cancelled image picker");
 
       } else {
-        setImage(response);
-        console.log("URI", response.assets?.[0]?.uri)
+        if (response.assets[0].uri) {
+          setImage(response);
+          console.log("URI", response.assets[0].uri)
+        }
       }
     } catch (error) {
       console.log("Error al abrir la cámara:", error);
@@ -77,11 +79,13 @@ export default function Prediction({ navigation }) {
       if (response.canceled) {
         console.log("El usuario canceló la selección de la imagen");
       } else if (response.errorCode) {
-        console.log("Error al seleccionar la imagen:", response.errorMessage);
+        console.log("Error al seleccionar la imagen");
       } else {
+        if (response.uri) {
         setImage(response);
-        console.log(image)
+        console.log("URI", response.uri)
       }
+    }
     } catch (error) {
       console.log("Error al abrir la cámara:", error);
     }
@@ -110,34 +114,6 @@ export default function Prediction({ navigation }) {
 
     }
   }
-
-
-  const makePrediction1 = async () => {
-    if (image) {
-
-      const formData = new FormData();
-      const file = {
-        uri: image.uri || image.assets?.[0]?.uri,
-        type: 'image/jpg',
-        name: new Date().getTime() + '.jpg',
-      };
-      formData.append('file', file);
-
-      try {
-        const response = await api().post(`/prediction1`, formData, {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-        console.log("response", response.data)
-        setImage(null);
-      } catch (error) {
-        console.error("Error saving image:", error);
-      }
-    }
-  }
-
 
   return (
     <SafeAreaView style={styles.container}>
