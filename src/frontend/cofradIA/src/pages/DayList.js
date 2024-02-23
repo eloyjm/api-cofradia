@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
     buttonText: {
       fontSize: 18,
       color: 'black',
-      textAlign: 'center'
+      textAlign: 'center',
+      fontWeight: "bold"
     },
 
   });
