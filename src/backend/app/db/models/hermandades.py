@@ -3,14 +3,15 @@ from sqlalchemy import Column, Enum as EnumColumn, Integer, String
 from app.db.database import Base
 
 class DayEnum(Enum):
-    DDR = 'Domingo de Ramos'
+    DR = 'Domingo de Ramos'
     LS = 'Lunes Santo'
     MS = 'Martes Santo'
     XS = 'Miércoles Santo'
     JS = 'Jueves Santo'
+    M = 'Madrugá'
     VS = 'Viernes Santo'
     SS = 'Sábado Santo'
-    D = 'Domingo de Resurección'
+    DDR = 'Domingo de Resurección'
 
 class Hermandad(Base):
     __tablename__ = 'hermandades'

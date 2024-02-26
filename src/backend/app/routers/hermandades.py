@@ -65,10 +65,6 @@ def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile 
     #except Exception as e:
     #    raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
 
-@hermandades_router.post('/prediction/prueba', tags=["hermandades"], status_code=status.HTTP_200_OK)
-def get_hermandad_prediction(db: db_dependency, file : UploadFile):
-        return {"filename": file.filename}
-
 def categorizar(img: UploadFile, day: DayEnum):
     #try:
         current_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
