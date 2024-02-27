@@ -47,9 +47,7 @@ def get_hermandades_by_id(db: db_dependency, id: int):
     
 @hermandades_router.post('/prediction', tags=["hermandades"], status_code=status.HTTP_200_OK)
 def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile = File(...)):
-    #try:
-        print(img)
-        print(day)
+    try:
         predicciones = categorizar(img, day)
         if len(predicciones)==0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha podido predecir")
@@ -58,12 +56,13 @@ def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile 
         if len(her_data)==0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha encontrado ninguna hermandad")
         
-        res = [hermandad for prediccion in predicciones for hermandad in her_data if hermandad.her_id == prediccion]
-
-        return res
+        if len(predicciones)==1:
+            return next(((hermandad, 1.0) for hermandad in her_data if hermandad.her_id == predicciones[0]), None)
+        else:
+            return [(hermandad, round(float(prob),2)) for (prediccion,prob) in predicciones for hermandad in her_data if hermandad.her_id == prediccion]
     
-    #except Exception as e:
-    #    raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
 
 def categorizar(img: UploadFile, day: DayEnum):
     #try:
@@ -82,18 +81,15 @@ def categorizar(img: UploadFile, day: DayEnum):
             img = img[:,:,0:3]
 
         prediccion = model.predict(img.reshape(-1, 224, 224, 3))
-        print(prediccion)
         
         if (max(prediccion[0]) >= 0.7):
             top = np.argmax(prediccion[0], axis=-1)
-            print(top)
             return [top]
         else:
-
-            index = np.argpartition(prediccion[0], -3)[-3:]
-            indices = index[np.argsort(-prediccion[0][index])]
-            print(indices)
-            return indices
+            indices = np.argsort(prediccion[0])[-3:][::-1]
+            probabilidades = prediccion[0][indices]
+            res = list(zip(indices, probabilidades))
+            return res
     
     #except Exception as e:
     #    raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
