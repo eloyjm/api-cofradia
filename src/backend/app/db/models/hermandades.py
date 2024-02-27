@@ -11,7 +11,7 @@ class DayEnum(Enum):
     M = 'Madrugá'
     VS = 'Viernes Santo'
     SS = 'Sábado Santo'
-    DDR = 'Domingo de Resurección'
+    DDR = 'Domingo de Resurrección'
 
 class Hermandad(Base):
     __tablename__ = 'hermandades'

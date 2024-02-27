@@ -19,6 +19,7 @@ export default function Prediction({ navigation }) {
     { label: "Martes Santo", value: "Martes Santo" },
     { label: "Miércoles Santo", value: "Miércoles Santo" },
     { label: "Jueves Santo", value: "Jueves Santo" },
+    { label: "Madrugá", value: "Madrugá" },
     { label: "Viernes Santo", value: "Viernes Santo" },
     { label: "Sábado Santo", value: "Sábado Santo" },
     { label: "Domingo de Resurrección", value: "Domingo de Resurrección" }
@@ -82,10 +83,10 @@ export default function Prediction({ navigation }) {
         console.log("Error al seleccionar la imagen");
       } else {
         if (response.uri) {
-        setImage(response);
-        console.log("URI", response.uri)
+          setImage(response);
+          console.log("URI", response.uri)
+        }
       }
-    }
     } catch (error) {
       console.log("Error al abrir la cámara:", error);
     }
@@ -130,9 +131,10 @@ export default function Prediction({ navigation }) {
                 resizeMode="contain"
               />
 
-              {result.length > 0 ? result.map((item, index) => (
+              {result.length > 0 ? result.map(([item, probability], index) => (
                 <View key={index} style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-                  <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>Prediction: {item.name}</Text>
+                  <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>Hermandad: {item.name}</Text>
+                  <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>({probability})</Text>
                 </View>
               )) : null}
 
