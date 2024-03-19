@@ -1,6 +1,6 @@
 from enum import Enum
 from sqlalchemy import Column, Enum as EnumColumn, Integer, String
-from app.db.database import Base
+from ..database import Base
 
 class DayEnum(Enum):
     DR = 'Domingo de Ramos'

@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.db.models.hermandades import Hermandad 
-from app.db.models.hermandades import DayEnum 
+from ..models.hermandades import Hermandad 
+from ..models.hermandades import DayEnum 
 import os
 from dotenv import load_dotenv
 

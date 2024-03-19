@@ -1,9 +1,9 @@
 from fastapi import FastAPI
-from app.db.database import Base,engine
+from .app.db.database import Base,engine
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from app.routers.hermandades import hermandades_router
-from app.db.migrations.populate_db import populate_database
+from .app.routers.hermandades import hermandades_router
+from .app.db.migrations.populate_db import populate_database
 
 
 app = FastAPI()
