@@ -57,7 +57,8 @@ def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile 
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha encontrado ninguna hermandad")
         
         if len(predicciones)==1:
-            return next(((hermandad, 1.0) for hermandad in her_data if hermandad.her_id == predicciones[0]), None)
+            print(predicciones)
+            return [next(((hermandad, predicciones[1]) for hermandad in her_data if hermandad.her_id == predicciones[0]), None)]
         else:
             return [(hermandad, round(float(prob),2)) for (prediccion,prob) in predicciones for hermandad in her_data if hermandad.her_id == prediccion]
     
