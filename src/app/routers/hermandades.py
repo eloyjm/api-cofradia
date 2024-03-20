@@ -46,6 +46,10 @@ def get_hermandades_by_id(db: db_dependency, id: int):
 @hermandades_router.post('/prediction', tags=["hermandades"], status_code=status.HTTP_200_OK)
 def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile = File(...)):
     try:
+        if day == DayEnum.DDR:
+            her_data=get_hermandades_by_day(db, day)
+            return [(her_data[0], 1.0)]
+        
         predicciones = categorizar(img, day)
         print("Predicciones:", predicciones)
         if len(predicciones)==0:
@@ -54,7 +58,6 @@ def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile 
         her_data=get_hermandades_by_day(db, day)
         if len(her_data)==0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha encontrado ninguna hermandad")
-
         return [(hermandad, round(float(prob),2)) for (prediccion,prob) in predicciones for hermandad in her_data if hermandad.her_id == prediccion]
 
     except Exception as e:
