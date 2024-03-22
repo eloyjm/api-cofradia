@@ -80,12 +80,8 @@ def categorizar(img: UploadFile, day: DayEnum):
 
     prediccion = model.predict(img.reshape(-1, 224, 224, 3))
     print(prediccion)
-    if (max(prediccion[0]) >= 0.7):
-        top = np.argmax(prediccion[0], axis=-1)
-        return [(top, prediccion[0][top])]
-    else:
-        indices = np.argsort(prediccion[0])[-3:][::-1]
-        probabilidades = prediccion[0][indices]
-        res = list(zip(indices, probabilidades))
-        return res
+    indices = np.argsort(prediccion[0])[-5:][::-1]
+    probabilidades = prediccion[0][indices]
+    res = list(zip(indices, probabilidades))
+    return res
     
