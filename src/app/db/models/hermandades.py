@@ -16,12 +16,18 @@ class DayEnum(Enum):
 class Hermandad(Base):
     __tablename__ = 'hermandades'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(String, primary_key=True)
     name = Column(String)
-    foundation = Column(Integer)
-    members = Column(Integer)
-    nazarenos = Column(Integer)
     description = Column(String)
+    foundation = Column(String)
+    members = Column(String)
+    nazarenos = Column(String)
+    history = Column(String)
+    passages_number = Column(String)
+    location = Column(String)
     colors = Column(String)
+    day_time = Column(String)
+    canonical_seat = Column(String)
     day = Column(EnumColumn(DayEnum))
+    wiki_url = Column(String)
     her_id = Column(Integer)

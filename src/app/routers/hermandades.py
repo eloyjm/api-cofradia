@@ -11,13 +11,12 @@ import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
 import os
+from ..db.migrations.scraping import extract_data
 
-
-hermandades_router = APIRouter()
+hermandades_router = APIRouter(tags=["hermandades"])
 db_dependency = Annotated[Session, Depends(get_db)]
 
-
-@hermandades_router.get('/hermandades', tags=["hermandades"], status_code=status.HTTP_200_OK)
+@hermandades_router.get('/hermandades', status_code=status.HTTP_200_OK)
 def get_hermandades(db: db_dependency):
     try:
         hermandades = db.query(DBHermandad).all()
@@ -27,7 +26,7 @@ def get_hermandades(db: db_dependency):
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
 
 
-@hermandades_router.get('/hermandades/{day}', tags=["hermandades"], status_code=status.HTTP_200_OK)
+@hermandades_router.get('/hermandades/{day}', status_code=status.HTTP_200_OK)
 def get_hermandades_by_day(db: db_dependency, day: DayEnum):
     try:
         hermandades = db.query(DBHermandad).filter(DBHermandad.day == day).all()
@@ -35,15 +34,15 @@ def get_hermandades_by_day(db: db_dependency, day: DayEnum):
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
     
-@hermandades_router.get('/hermandades/{id}', tags=["hermandades"], status_code=status.HTTP_200_OK)
-def get_hermandades_by_id(db: db_dependency, id: int):
+@hermandades_router.get('/hermandades/{id}', status_code=status.HTTP_200_OK)
+def get_hermandades_by_id(db: db_dependency, id: str):
     try:
         hermandad = db.query(DBHermandad).filter(DBHermandad.id == id).first()
         return hermandad
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
     
-@hermandades_router.post('/prediction', tags=["hermandades"], status_code=status.HTTP_200_OK)
+@hermandades_router.post('/prediction', status_code=status.HTTP_200_OK)
 def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile = File(...)):
     try:
         if day == DayEnum.DDR:
@@ -85,3 +84,53 @@ def categorizar(img: UploadFile, day: DayEnum):
     res = list(zip(indices, probabilidades))
     return res
     
+@hermandades_router.patch('/migrate/wiki', status_code=status.HTTP_200_OK)
+def parse_wiki(db: db_dependency):
+    try:
+        hermandades = db.query(DBHermandad).all()
+        for hermandad in hermandades:
+            if hermandad.wiki_url:
+                data = extract_data(hermandad.wiki_url)
+                hermandad.description = data["Descripcción"]
+                hermandad.foundation = data["Fundación"]
+                hermandad.members = data["Hermanos"].replace("[cita requerida]", "")
+                hermandad.nazarenos = data["Nazarenos"]
+                hermandad.history = data["Historia"]
+                hermandad.passages_number = data["Pasos"]
+                hermandad.location = data["Localidad"]
+                hermandad.colors = data["Túnica"]
+                hermandad.day_time = data["Día y hora"]
+                hermandad.canonical_seat = data["Sede canónica"]
+
+                db.add(hermandad)
+            db.commit()
+        return {"message": "Datos actualizados"}
+        
+
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
+
+@hermandades_router.patch('/migrate/wiki/{id}', status_code=status.HTTP_200_OK)
+def parse_wiki_by_id(db: db_dependency, id:str):
+    try:
+        hermandad = db.query(DBHermandad).filter(DBHermandad.id == id).first()
+        if hermandad.wiki_url:
+            data = extract_data(hermandad.wiki_url)
+            hermandad.description = data["Descripcción"]
+            hermandad.foundation = data["Fundación"]
+            hermandad.members = data["Hermanos"].replace("[cita requerida]", "")
+            hermandad.nazarenos = data["Nazarenos"]
+            hermandad.history = data["Historia"]
+            hermandad.passages_number = data["Pasos"]
+            hermandad.location = data["Localidad"]
+            hermandad.colors = data["Túnica"]
+            hermandad.day_time = data["Día y hora"]
+            hermandad.canonical_seat = data["Sede canónica"]
+
+            db.add(hermandad)
+        db.commit()
+        return {"message": "Datos actualizados"}
+        
+
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
