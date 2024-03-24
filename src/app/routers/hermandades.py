@@ -45,8 +45,13 @@ def get_hermandades_by_id(db: db_dependency, id: str):
 @hermandades_router.post('/prediction', status_code=status.HTTP_200_OK)
 def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile = File(...)):
     try:
+
+        her_data=get_hermandades_by_day(db, day)
+        if len(her_data)==0:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha encontrado ninguna hermandad")
+        her_data = sorted(her_data, key=lambda x: x.name)
+        
         if day == DayEnum.DDR:
-            her_data=get_hermandades_by_day(db, day)
             return [(her_data[0], 1.0)]
         
         predicciones = categorizar(img, day)
@@ -54,10 +59,7 @@ def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile 
         if len(predicciones)==0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha podido predecir")
 
-        her_data=get_hermandades_by_day(db, day)
-        if len(her_data)==0:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha encontrado ninguna hermandad")
-        return [(hermandad, round(float(prob),2)) for (prediccion,prob) in predicciones for hermandad in her_data if hermandad.her_id == prediccion]
+        return [(hermandad, round(float(prob),2)) for (prediccion,prob) in predicciones for i, hermandad in enumerate(her_data) if i == prediccion]
 
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
@@ -83,7 +85,47 @@ def categorizar(img: UploadFile, day: DayEnum):
     probabilidades = prediccion[0][indices]
     res = list(zip(indices, probabilidades))
     return res
+
+@hermandades_router.post('/prediction/full', status_code=status.HTTP_200_OK)
+def get_hermandad_prediction(db: db_dependency, img : UploadFile = File(...)):
+    try:
+        her_data=get_hermandades(db)
+        if len(her_data)==0:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha encontrado ninguna hermandad")
+        her_data = sorted(her_data, key=lambda x: x.name)
+
+        predicciones = categorizar_full(img)
+        print("Predicciones:", predicciones)
+        if len(predicciones)==0:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha podido predecir")
+
+        return [(hermandad, round(float(prob),2)) for (prediccion,prob) in predicciones for i, hermandad in enumerate(her_data) if i == prediccion]
     
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
+
+def categorizar_full(img: UploadFile):
+    current_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    model_path = os.path.join(current_dir, 'ia', 'models','FULLDENSENET100.h5')
+    print(model_path)
+    model = tf.keras.models.load_model(model_path, custom_objects={'KerasLayer': hub.KerasLayer})
+    if not model:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha encontrado el modelo")
+    
+    img = Image.open(BytesIO(img.file.read()))
+    img = np.array(img).astype(float)/255
+    img = cv2.resize(img, (224,224))
+
+    if img.shape == (224, 224, 4):
+        img = img[:,:,0:3]
+
+    prediccion = model.predict(img.reshape(-1, 224, 224, 3))
+    print(prediccion)
+    indices = np.argsort(prediccion[0])[-10:][::-1]
+    probabilidades = prediccion[0][indices]
+    res = list(zip(indices, probabilidades))
+    return res
+
 @hermandades_router.patch('/migrate/wiki', status_code=status.HTTP_200_OK)
 def parse_wiki(db: db_dependency):
     try:

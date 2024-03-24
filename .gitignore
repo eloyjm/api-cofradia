@@ -253,3 +253,6 @@ $RECYCLE.BIN/
 data/
 data
 .data/
+full_data/
+full_data
+.full_data/
