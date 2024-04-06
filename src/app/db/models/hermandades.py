@@ -1,6 +1,8 @@
 from enum import Enum
 from sqlalchemy import Column, Enum as EnumColumn, Integer, String
 from ..database import Base
+from sqlalchemy.orm import relationship
+from .timetables import TimeTable
 
 class DayEnum(Enum):
     DR = 'Domingo de Ramos'
@@ -26,7 +28,11 @@ class Hermandad(Base):
     passages_number = Column(String)
     location = Column(String)
     colors = Column(String)
+    color_one = Column(String)
+    color_two = Column(String)
     day_time = Column(String)
     canonical_seat = Column(String)
     day = Column(EnumColumn(DayEnum))
     wiki_url = Column(String)
+
+    timetables = relationship("TimeTable", back_populates="hermandad")

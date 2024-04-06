@@ -4,14 +4,11 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from .app.routers.hermandades import hermandades_router
 from .app.db.migrations.populate_db import populate_database
-
+from .app.routers.timetables import timetables_router
 
 app = FastAPI()
 app.include_router(hermandades_router)
-
-tags_metadata = [
-    {"name": "hermandades"},
-]
+app.include_router(timetables_router)
 
 def create_tables():
     try:
