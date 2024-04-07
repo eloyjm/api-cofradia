@@ -2,8 +2,8 @@ from pydantic import BaseModel
 from enum import Enum as PyEnum
 
 class EntityEnum(PyEnum):
-    CRUZ = 'Cruz'
-    PALIO = 'Palio'
+    CRUZ = 'CRUZ'
+    PALIO = 'PALIO'
 
 class TimeTable(BaseModel):
     location : str

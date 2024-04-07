@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, status, HTTPException, UploadFile, File
 from ..db.models.timetables import TimeTable as DBTimeTable
-from ..db.models.timetables import EntityEnum
 from sqlalchemy.orm import Session
 from typing import Annotated
 from ..db.database import get_db
@@ -48,11 +47,16 @@ def create_timetable(db: db_dependency, timetable_data : TimeTable):
         time = datetime.strptime(timetable_data.time, '%H:%M').time()
         if not time:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Formato de hora incorrecto")
-
-        new_timetable = DBTimeTable(id = str(uuid.uuid4()), time=time, **timetable_data.model_dump(exclude={"time"}))
+        
+        new_timetable = DBTimeTable(id = str(uuid.uuid4()), time=time,entity=timetable_data.entity.name, **timetable_data.model_dump(exclude={"time", "entity"}))
         db.add(new_timetable)
+
         db.commit()
         db.refresh(new_timetable)
         return new_timetable
+    
+    except HTTPException as h:
+        raise h
     except Exception as e:
+        print("error:", e)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, status, HTTPException, UploadFile, File
 from ..db.models.hermandades import Hermandad as DBHermandad
 from ..db.models.hermandades import DayEnum
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from typing import Annotated
 from ..db.database import get_db
 from PIL import Image
@@ -29,7 +29,7 @@ def get_hermandades(db: db_dependency):
 @hermandades_router.get('/hermandades/{day}', status_code=status.HTTP_200_OK)
 def get_hermandades_by_day(db: db_dependency, day: DayEnum):
     try:
-        hermandades = db.query(DBHermandad).filter(DBHermandad.day == day).all()
+        hermandades = db.query(DBHermandad).filter(DBHermandad.day == day).options(joinedload(DBHermandad.timetables)).all()
         return hermandades
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
