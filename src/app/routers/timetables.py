@@ -7,9 +7,12 @@ from ..schemas.timetables import TimeTable
 from ..db.models.hermandades import Hermandad as DBHermandad
 import uuid
 from datetime import datetime
+from ..routers.oauth import  get_current_user
+from ..schemas import users
 
 timetables_router = APIRouter(tags=["timetables"])
 db_dependency = Annotated[Session, Depends(get_db)]
+current_user = Annotated[users.User, Depends(get_current_user)]
 
 @timetables_router.get('/timetables', status_code=status.HTTP_200_OK)
 def get_timetables(db: db_dependency):
@@ -17,7 +20,10 @@ def get_timetables(db: db_dependency):
         timetables = db.query(DBTimeTable).all()
         return timetables
     
+    except HTTPException as h:
+        raise h
     except Exception as e:
+        print("error:", e)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
     
 
@@ -26,7 +32,10 @@ def get_timetables_by_id(db: db_dependency, id: str):
     try:
         timetable = db.query(DBTimeTable).filter(DBTimeTable.id == id).first()
         return timetable
+    except HTTPException as h:
+        raise h
     except Exception as e:
+        print("error:", e)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
     
 @timetables_router.get('/timetables/hermandades/{her_id}', status_code=status.HTTP_200_OK)
@@ -34,11 +43,14 @@ def get_timetables_by_hermandad(db: db_dependency, her_id: str):
     try:
         timetables = db.query(DBTimeTable).filter(DBTimeTable.hermandad_id == her_id).all()
         return timetables
+    except HTTPException as h:
+        raise h
     except Exception as e:
+        print("error:", e)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
     
 @timetables_router.post('/timetables/new', status_code=status.HTTP_200_OK)
-def create_timetable(db: db_dependency, timetable_data : TimeTable):
+def create_timetable(db: db_dependency, timetable_data : TimeTable, current_user:current_user):
     try:
         hermandad = db.query(DBHermandad).filter(DBHermandad.id == timetable_data.hermandad_id).first()
         if not hermandad:

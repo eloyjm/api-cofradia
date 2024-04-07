@@ -20,7 +20,7 @@ def create_tables():
     except Exception as e:
         print("Error al crear las tablas:", e)
 create_tables()
-populate_database()
+#populate_database()
 
 
 origins = [

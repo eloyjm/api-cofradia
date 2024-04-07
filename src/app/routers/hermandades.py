@@ -4,6 +4,7 @@ from ..db.models.hermandades import DayEnum
 from sqlalchemy.orm import Session, joinedload
 from typing import Annotated
 from ..db.database import get_db
+from ..schemas.hermandades import UpdateHermandad
 from PIL import Image
 from io import BytesIO
 import cv2
@@ -12,36 +13,67 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import os
 from ..db.migrations.scraping import extract_data
+from ..routers.oauth import  get_current_user
+from ..schemas import users
 
 hermandades_router = APIRouter(tags=["hermandades"])
 db_dependency = Annotated[Session, Depends(get_db)]
+current_user = Annotated[users.User, Depends(get_current_user)]
 
 @hermandades_router.get('/hermandades', status_code=status.HTTP_200_OK)
-def get_hermandades(db: db_dependency):
+async def get_hermandades(db: db_dependency):
     try:
         hermandades = db.query(DBHermandad).all()
         return hermandades
     
+    except HTTPException as h:
+        raise h
     except Exception as e:
+        print("error:", e)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
 
 
 @hermandades_router.get('/hermandades/day/{day}', status_code=status.HTTP_200_OK)
-def get_hermandades_by_day(db: db_dependency, day: DayEnum):
+async def get_hermandades_by_day(db: db_dependency, day: DayEnum):
     try:
         hermandades = db.query(DBHermandad).filter(DBHermandad.day == day).options(joinedload(DBHermandad.timetables)).all()
         return hermandades
+    except HTTPException as h:
+        raise h
     except Exception as e:
+        print("error:", e)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
     
 @hermandades_router.get('/hermandades/{id}', status_code=status.HTTP_200_OK)
-def get_hermandades_by_id(db: db_dependency, id: str):
+async def get_hermandades_by_id(db: db_dependency, id: str):
     try:
         hermandad = db.query(DBHermandad).filter(DBHermandad.id == id).first()
         return hermandad
+    except HTTPException as h:
+        raise h
     except Exception as e:
+        print("error:", e)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
-    
+
+@hermandades_router.patch('/hermandades/update/{id}', status_code=status.HTTP_200_OK)
+async def update_hermandad(db: db_dependency, id: str, hermandad_data: UpdateHermandad, current_user: current_user):
+    try:
+        hermandad_db = db.query(DBHermandad).filter(DBHermandad.id == id).first()
+        if not hermandad_db:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha encontrado la hermandad con id:{id}")
+        print(hermandad_data)
+        for key, value in hermandad_data.model_dump(exclude_unset=True).items():
+            setattr(hermandad_db, key, value)
+
+        db.commit()
+        db.refresh(hermandad_db)
+        return hermandad_db
+    except HTTPException as h:
+        raise h
+    except Exception as e:
+        print("error:", e)
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
+
 @hermandades_router.post('/prediction', status_code=status.HTTP_200_OK)
 def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile = File(...)):
     try:
@@ -127,7 +159,7 @@ def categorizar_full(img: UploadFile):
     return res
 
 @hermandades_router.patch('/migrate/wiki', status_code=status.HTTP_200_OK)
-def parse_wiki(db: db_dependency):
+async def parse_wiki(db: db_dependency, current_user: current_user):
     try:
         hermandades = db.query(DBHermandad).all()
         for hermandad in hermandades:
@@ -153,7 +185,7 @@ def parse_wiki(db: db_dependency):
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
 
 @hermandades_router.patch('/migrate/wiki/{id}', status_code=status.HTTP_200_OK)
-def parse_wiki_by_id(db: db_dependency, id:str):
+async def parse_wiki_by_id(db: db_dependency, id:str, current_user:current_user):
     try:
         hermandad = db.query(DBHermandad).filter(DBHermandad.id == id).first()
         if hermandad.wiki_url:
