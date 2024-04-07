@@ -5,10 +5,14 @@ import uvicorn
 from .app.routers.hermandades import hermandades_router
 from .app.db.migrations.populate_db import populate_database
 from .app.routers.timetables import timetables_router
+from .app.routers.users import user_router
+from .app.routers.oauth import oAuth2_router
 
 app = FastAPI()
 app.include_router(hermandades_router)
 app.include_router(timetables_router)
+app.include_router(user_router)
+app.include_router(oAuth2_router)
 
 def create_tables():
     try:

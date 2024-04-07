@@ -26,7 +26,7 @@ def get_hermandades(db: db_dependency):
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
 
 
-@hermandades_router.get('/hermandades/{day}', status_code=status.HTTP_200_OK)
+@hermandades_router.get('/hermandades/day/{day}', status_code=status.HTTP_200_OK)
 def get_hermandades_by_day(db: db_dependency, day: DayEnum):
     try:
         hermandades = db.query(DBHermandad).filter(DBHermandad.day == day).options(joinedload(DBHermandad.timetables)).all()
