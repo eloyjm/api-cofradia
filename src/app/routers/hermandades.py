@@ -12,7 +12,7 @@ import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
 import os
-from ..db.migrations.scraping import extract_data
+from ..db.migrations.scraping import extract_data_wiki
 from ..routers.oauth import  get_current_user
 from ..schemas import users
 
@@ -164,7 +164,7 @@ async def parse_wiki(db: db_dependency, current_user: current_user):
         hermandades = db.query(DBHermandad).all()
         for hermandad in hermandades:
             if hermandad.wiki_url:
-                data = extract_data(hermandad.wiki_url)
+                data = extract_data_wiki(hermandad.wiki_url)
                 hermandad.description = data["Descripcción"]
                 hermandad.foundation = data["Fundación"]
                 hermandad.members = data["Hermanos"].replace("[cita requerida]", "")
@@ -189,7 +189,7 @@ async def parse_wiki_by_id(db: db_dependency, id:str, current_user:current_user)
     try:
         hermandad = db.query(DBHermandad).filter(DBHermandad.id == id).first()
         if hermandad.wiki_url:
-            data = extract_data(hermandad.wiki_url)
+            data = extract_data_wiki(hermandad.wiki_url)
             hermandad.description = data["Descripcción"]
             hermandad.foundation = data["Fundación"]
             hermandad.members = data["Hermanos"].replace("[cita requerida]", "")
@@ -208,3 +208,4 @@ async def parse_wiki_by_id(db: db_dependency, id:str, current_user:current_user)
 
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
+    

@@ -9,7 +9,7 @@ if(not os.environ.get("PYTHONTTPSVERIFY", "") and
     getattr(ssl, '_create_unverified_context', None)):
     ssl._create_default_https_context = ssl._create_unverified_context
 
-def extract_data(url:str):
+def extract_data_wiki(url:str):
 
     data = {}
     f = urllib.request.urlopen(url)
@@ -57,3 +57,22 @@ def extract_data(url:str):
         
     result = {key: data.get(key, "No disponible") for key in keys}
     return result
+
+def extract_data_dds(url:str):
+    f = urllib.request.urlopen(url)
+    s = BeautifulSoup(f, "lxml")
+
+    table = s.find("table", class_="movil")
+    data = []
+    rows = table.find_all('tr')
+    for i, row in enumerate(rows):
+        cols = row.find_all('td')
+        cols = [ele.text.strip() for ele in cols]
+        if i == 0: 
+            continue
+        if cols[1]:  
+            data.append(('CRUZ', cols[0], cols[1]))
+        if cols[2]:  
+            data.append(('PALIO', cols[0], cols[2]))
+
+    return data

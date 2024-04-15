@@ -52,7 +52,7 @@ def populate_database():
     db.add(hermandadLS4)
     hermandadLS5 = Hermandad(id=str(uuid.uuid4()), name="San Pablo", day=DayEnum.LS, wiki_url="https://es.wikipedia.org/wiki/Hermandad_de_San_Pablo_(Sevilla)")
     db.add(hermandadLS5)
-    hermandadLS6 = Hermandad(id=str(uuid.uuid4()), name="Santa Genovena", day=DayEnum.LS, wiki_url="https://es.wikipedia.org/wiki/Hermandad_de_Santa_Genoveva_(Sevilla)")
+    hermandadLS6 = Hermandad(id=str(uuid.uuid4()), name="Santa Genoveva", day=DayEnum.LS, wiki_url="https://es.wikipedia.org/wiki/Hermandad_de_Santa_Genoveva_(Sevilla)")
     db.add(hermandadLS6)
     hermandadLS7 = Hermandad(id=str(uuid.uuid4()), name="Santa Marta", day=DayEnum.LS, wiki_url="https://es.wikipedia.org/wiki/Hermandad_de_Santa_Marta_(Sevilla)")
     db.add(hermandadLS7)
