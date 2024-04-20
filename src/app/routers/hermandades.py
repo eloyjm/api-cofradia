@@ -184,6 +184,32 @@ async def parse_wiki(db: db_dependency, current_user: current_user):
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
 
+@hermandades_router.patch('/migrate/wiki/day/{day}', status_code=status.HTTP_200_OK)
+async def parse_wiki_day(db: db_dependency, day: DayEnum, current_user: current_user):
+    try:
+        hermandades = db.query(DBHermandad).filter(DBHermandad.day == day).all()
+        for hermandad in hermandades:
+            if hermandad.wiki_url:
+                data = extract_data_wiki(hermandad.wiki_url)
+                hermandad.description = data["Descripcción"]
+                hermandad.foundation = data["Fundación"]
+                hermandad.members = data["Hermanos"].replace("[cita requerida]", "")
+                hermandad.nazarenos = data["Nazarenos"]
+                hermandad.history = data["Historia"]
+                hermandad.passages_number = data["Pasos"]
+                hermandad.location = data["Localidad"]
+                hermandad.colors = data["Túnica"]
+                hermandad.day_time = data["Día y hora"]
+                hermandad.canonical_seat = data["Sede canónica"]
+
+                db.add(hermandad)
+            db.commit()
+        return {"message": "Datos actualizados"}
+        
+
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
+
 @hermandades_router.patch('/migrate/wiki/{id}', status_code=status.HTTP_200_OK)
 async def parse_wiki_by_id(db: db_dependency, id:str, current_user:current_user):
     try:

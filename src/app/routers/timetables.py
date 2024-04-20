@@ -1,10 +1,11 @@
-from fastapi import APIRouter, Depends, status, HTTPException, UploadFile, File
+from fastapi import APIRouter, Depends, status, HTTPException
 from ..db.models.timetables import TimeTable as DBTimeTable
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from typing import Annotated
 from ..db.database import get_db
 from ..schemas.timetables import TimeTable
 from ..db.models.hermandades import Hermandad as DBHermandad
+from ..db.models.hermandades import DayEnum
 import uuid,re
 from datetime import datetime
 from ..routers.oauth import  get_current_user
@@ -137,7 +138,45 @@ async def migrate_timetables(db: db_dependency, current_user:current_user):
 
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
-    
+
+@timetables_router.post('/migrate/day/{day}', status_code=status.HTTP_200_OK)
+async def migrate_timetables(db: db_dependency, day: DayEnum, current_user:current_user):
+    try:
+        hermandades = db.query(DBHermandad).filter(DBHermandad.day == day).all()
+        
+        her_ids = [her.id for her in hermandades]
+        db.query(DBTimeTable).filter(DBTimeTable.hermandad_id.in_(her_ids)).delete()
+
+        db.commit()
+
+        for hermandad in hermandades:
+            name = unidecode(hermandad.name.lower().replace(" ", "-"))
+            
+            name = name_mapping.get(name, name)
+
+            url = f"https://www.diariodesevilla.es/contenidos/programa-semana-santa-sevilla/{name}.php"
+            data = extract_data_dds(url)
+            for row in data:
+                time = row[1]
+                location = row[2]
+                match = re.search(r'\((.*?)\)', location)
+                if match:
+                    time = match.group(1)
+                    location = re.sub(r'\(.*?\)', '', location)
+
+                if time != "":
+                    time = datetime.strptime(time.replace(".", ":"), '%H:%M').time()
+                    if not time:
+                        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Formato de hora incorrecto")
+                    new_timetable = DBTimeTable(id = str(uuid.uuid4()), time=time, entity=row[0], location=location, hermandad=hermandad)
+                    db.add(new_timetable)
+
+        db.commit()
+        return {"message": "Datos actualizados"}
+
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
+
 @timetables_router.post('/migrate/{her_id}', status_code=status.HTTP_200_OK)
 async def migrate_timetables_by_id(db: db_dependency, her_id: str, current_user:current_user):
     try:
@@ -153,13 +192,19 @@ async def migrate_timetables_by_id(db: db_dependency, her_id: str, current_user:
         url = f"https://www.diariodesevilla.es/contenidos/programa-semana-santa-sevilla/{name}.php"
         data = extract_data_dds(url)
         for row in data:
-            time = row[1]
-            if time != "":
-                time = datetime.strptime(time.replace(".", ":"), '%H:%M').time()
-                if not time:
-                    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Formato de hora incorrecto")
-                new_timetable = DBTimeTable(id = str(uuid.uuid4()), time=time, entity=row[0], location=row[2], hermandad=hermandad)
-                db.add(new_timetable)
+                time = row[1]
+                location = row[2]
+                match = re.search(r'\((.*?)\)', location)
+                if match:
+                    time = match.group(1)
+                    location = re.sub(r'\(.*?\)', '', location)
+
+                if time != "":
+                    time = datetime.strptime(time.replace(".", ":"), '%H:%M').time()
+                    if not time:
+                        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Formato de hora incorrecto")
+                    new_timetable = DBTimeTable(id = str(uuid.uuid4()), time=time, entity=row[0], location=location, hermandad=hermandad)
+                    db.add(new_timetable)
         
         db.commit()
         return {"message": "Datos actualizados"}
