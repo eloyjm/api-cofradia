@@ -1,13 +1,14 @@
 from fastapi import FastAPI
 from .app.db.database import Base,engine
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 import uvicorn
 from .app.routers.hermandades import hermandades_router
 from .app.db.migrations.populate_db import populate_database
 from .app.routers.timetables import timetables_router
 from .app.routers.users import user_router
 from .app.routers.oauth import oAuth2_router
-
+import os
 app = FastAPI()
 app.include_router(hermandades_router)
 app.include_router(timetables_router)
@@ -22,6 +23,9 @@ def create_tables():
 create_tables()
 #populate_database()
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+app.mount("/static", StaticFiles(directory=BASE_DIR), name="static")
 
 origins = [
     "http://localhost:3000", "*", 

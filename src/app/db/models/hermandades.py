@@ -34,5 +34,7 @@ class Hermandad(Base):
     canonical_seat = Column(String)
     day = Column(EnumColumn(DayEnum))
     wiki_url = Column(String)
+    escudo_url = Column(String)
+    traje_url = Column(String)
 
     timetables = relationship("TimeTable", back_populates="hermandad")
