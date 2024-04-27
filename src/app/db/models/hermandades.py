@@ -34,6 +34,7 @@ class Hermandad(Base):
     canonical_seat = Column(String)
     day = Column(EnumColumn(DayEnum))
     wiki_url = Column(String)
+    route_url = Column(String)
     escudo_url = Column(String)
     traje_url = Column(String)
 

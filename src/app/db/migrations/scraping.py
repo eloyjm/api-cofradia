@@ -74,5 +74,10 @@ def extract_data_dds(url:str):
             data.append(('CRUZ', cols[0], cols[1]))
         if cols[2]:  
             data.append(('PALIO', cols[0], cols[2]))
+    
+    map = s.find("div", class_="mapa")
+    map_src = map.find("iframe")
+    if map_src:
+        map_src = map_src.get("src")
 
-    return data
+    return data, map_src

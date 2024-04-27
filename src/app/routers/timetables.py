@@ -117,7 +117,9 @@ async def migrate_timetables(db: db_dependency, current_user:current_user):
             name = name_mapping.get(name, name)
 
             url = f"https://www.diariodesevilla.es/contenidos/programa-semana-santa-sevilla/{name}.php"
-            data = extract_data_dds(url)
+            data, map_src = extract_data_dds(url)
+            if map_src:
+                hermandad.route_url = map_src
             for row in data:
                 time = row[1]
                 location = row[2]
@@ -155,7 +157,10 @@ async def migrate_timetables(db: db_dependency, day: DayEnum, current_user:curre
             name = name_mapping.get(name, name)
 
             url = f"https://www.diariodesevilla.es/contenidos/programa-semana-santa-sevilla/{name}.php"
-            data = extract_data_dds(url)
+            data, map_src = extract_data_dds(url)
+            if map_src:
+                hermandad.route_url = map_src
+
             for row in data:
                 time = row[1]
                 location = row[2]
@@ -190,7 +195,9 @@ async def migrate_timetables_by_id(db: db_dependency, her_id: str, current_user:
         name = name_mapping.get(name, name)
 
         url = f"https://www.diariodesevilla.es/contenidos/programa-semana-santa-sevilla/{name}.php"
-        data = extract_data_dds(url)
+        data, map_src = extract_data_dds(url)
+        if map_src:
+                hermandad.route_url = map_src
         for row in data:
                 time = row[1]
                 location = row[2]

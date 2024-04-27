@@ -15,3 +15,4 @@ class UpdateHermandad(BaseModel):
     day_time: Optional[str]
     canonical_seat: Optional[str]
     wiki_url: Optional[str]
+    route_url: Optional[str]

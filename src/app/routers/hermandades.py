@@ -82,10 +82,9 @@ async def update_hermandad(db: db_dependency, id: str, hermandad_data: UpdateHer
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
 
 @hermandades_router.post('/prediction', status_code=status.HTTP_200_OK)
-def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile = File(...)):
+async def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile = File(...)):
     try:
-
-        her_data=get_hermandades_by_day(db, day)
+        her_data= await get_hermandades_by_day(db, day)
         if len(her_data)==0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha encontrado ninguna hermandad")
         her_data = sorted(her_data, key=lambda x: x.name)
@@ -93,7 +92,7 @@ def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile 
         if day == DayEnum.DDR:
             return [(her_data[0], 1.0)]
         
-        predicciones = categorizar(img, day)
+        predicciones = await categorizar(img, day)
         print("Predicciones:", predicciones)
         if len(predicciones)==0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha podido predecir")
@@ -101,9 +100,10 @@ def get_hermandad_prediction(db: db_dependency, day: DayEnum , img : UploadFile 
         return [(hermandad, round(float(prob),2)) for (prediccion,prob) in predicciones for i, hermandad in enumerate(her_data) if i == prediccion]
 
     except Exception as e:
+        print("error:", e)
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
 
-def categorizar(img: UploadFile, day: DayEnum):
+async def categorizar(img: UploadFile, day: DayEnum):
     current_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     model_path = os.path.join(current_dir, 'ia', 'models', day._name_, day._name_+'DENSENET100.h5')
     print(model_path)
@@ -126,14 +126,14 @@ def categorizar(img: UploadFile, day: DayEnum):
     return res
 
 @hermandades_router.post('/prediction/full', status_code=status.HTTP_200_OK)
-def get_hermandad_prediction(db: db_dependency, img : UploadFile = File(...)):
+async def get_hermandad_prediction(db: db_dependency, img : UploadFile = File(...)):
     try:
-        her_data=get_hermandades(db)
+        her_data= await get_hermandades(db)
         if len(her_data)==0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha encontrado ninguna hermandad")
         her_data = sorted(her_data, key=lambda x: x.name)
 
-        predicciones = categorizar_full(img)
+        predicciones = await categorizar_full(img)
         print("Predicciones:", predicciones)
         if len(predicciones)==0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"No se ha podido predecir")
@@ -143,7 +143,7 @@ def get_hermandad_prediction(db: db_dependency, img : UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
 
-def categorizar_full(img: UploadFile):
+async def categorizar_full(img: UploadFile):
     current_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     model_path = os.path.join(current_dir, 'ia', 'models','FULLDENSENET100.h5')
     print(model_path)
@@ -293,7 +293,7 @@ async def update_hermandad_image_traje(db: db_dependency, current_user: current_
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
     
 @hermandades_router.get('/hermandades/{id}/image/escudo', status_code=status.HTTP_200_OK)
-async def get_hermandad_image_escudo(db: db_dependency, current_user: current_user, id: str):
+async def get_hermandad_image_escudo(db: db_dependency, id: str):
     try:
         hermandad_db = db.query(DBHermandad).filter(DBHermandad.id == id).first()
         if not hermandad_db:
@@ -312,7 +312,7 @@ async def get_hermandad_image_escudo(db: db_dependency, current_user: current_us
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error interno del servidor:{str(e)}")
     
 @hermandades_router.get('/hermandades/{id}/image/traje', status_code=status.HTTP_200_OK)
-async def get_hermandad_image_traje(db: db_dependency, current_user: current_user, id: str):
+async def get_hermandad_image_traje(db: db_dependency, id: str):
     try:
         hermandad_db = db.query(DBHermandad).filter(DBHermandad.id == id).first()
         if not hermandad_db:
