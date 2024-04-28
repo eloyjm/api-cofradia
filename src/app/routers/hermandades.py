@@ -2,7 +2,6 @@ from fastapi import APIRouter, Depends, status, HTTPException, UploadFile, File
 from ..db.models.hermandades import Hermandad as DBHermandad
 from ..db.models.hermandades import DayEnum
 from sqlalchemy.orm import Session, joinedload
-from fastapi.staticfiles import StaticFiles
 from typing import Annotated
 from ..db.database import get_db
 from ..schemas.hermandades import UpdateHermandad
