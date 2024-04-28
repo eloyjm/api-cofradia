@@ -15,7 +15,6 @@ import os
 load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
-PASS_TOKEN_EXPIRATION = int(os.getenv("PASS_TOKEN_EXPIRATION"))
 
 ####RUTAS DE LOS USUARIOS 
 user_router = APIRouter(tags=["Users"])
