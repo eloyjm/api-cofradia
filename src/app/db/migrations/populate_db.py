@@ -3,19 +3,22 @@ from sqlalchemy.orm import sessionmaker
 from ..models.hermandades import Hermandad 
 from ..models.hermandades import DayEnum 
 import os
+from ....config import Config
 from dotenv import load_dotenv
 import uuid
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
  
 ###CONEXION CON LA BASE DE DATOS
 load_dotenv()
-SQLALCHEMY_DATABASE_URL = os.getenv("SQLALCHEMY_DATABASE_URL")
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
- 
+engine = create_engine(Config.get_database_url())
 SessionLocal = sessionmaker(bind=engine, autocommit = False, autoflush = False)
 
 def populate_database():
     db = SessionLocal()
+    
     db.query(Hermandad).delete()
     
     #Hermandades del domingo de ramos
