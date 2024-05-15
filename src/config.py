@@ -4,9 +4,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
-    DATABASE_URL_PROD = os.getenv("SQLALCHEMY_DATABASE_URL")
+    DATABASE_URL_PROD = os.getenv("SQLALCHEMY_DATABASE_URL_ENV")
 
-    DATABASE_URL_TEST = "postgresql://postgres:admin@localhost:5432/cofradia"
+    DATABASE_URL_TEST = os.getenv("SQLALCHEMY_DATABASE_URL_TEST")
 
     @classmethod
     def get_database_url(cls):
