@@ -32,7 +32,7 @@ def create_tables():
         print("Error creating tables:", e)
         
 create_tables()
-#populate_database()
+populate_database()
 '''
 if os.getenv("ENV") == "test":
     populate_database()
