@@ -1,0 +1,26 @@
+# docker-compose.yml
+version: '3.11'
+services:
+  api:
+    container_name: api-cofradia
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - src/.env
+    depends_on:
+      - db
+
+  db:
+    container_name: db
+    image: postgres:16.0
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: cofradia
+      POSTGRES_PORT: 5432
+
