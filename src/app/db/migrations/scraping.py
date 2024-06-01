@@ -81,3 +81,22 @@ def extract_data_dds(url:str):
         map_src = map_src.get("src")
 
     return data, map_src
+
+def extract_data_marcha(url:str):
+    f = urllib.request.urlopen(url)
+    s = BeautifulSoup(f, "lxml")
+    res = list()
+    rows = s.find_all("h3")
+    for row in rows:
+        data = {}
+        text = row.text.split("(")
+        if len(text) > 1:
+            data["name"] = text[0].split(".")[1].strip()
+            data["autor"] = text[1].split(")")[0]
+            data["url"] = row.find("a").get("href")
+            p = row.find_next_sibling("p")
+            data["description"] = ""
+            if p:
+                data["description"] = p.text
+            res.append(data)
+    return res
