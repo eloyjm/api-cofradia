@@ -1,0 +1,28 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "CofradIA API",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/hermandades": {
+            "get": {
+                "tags": [
+                    "Hermandades"
+                ],
+                "summary": "Get Hermandades",
+                "operationId": "get_hermandades_hermandades_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
