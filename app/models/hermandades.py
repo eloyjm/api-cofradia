@@ -36,7 +36,7 @@ class Hermandad(db_manager.base_schemas):
     day = Column(EnumColumn(DayEnum))
     wiki_url = Column(String)
     route_url = Column(String)
-    escudo_url = Column(String)
-    traje_url = Column(String)
+    shield_path = Column(String)
+    suit_path = Column(String)
 
     timetables = relationship("Timetable", back_populates="hermandad")

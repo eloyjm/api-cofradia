@@ -151,19 +151,80 @@
                 }
             }
         },
-        "/hermandades/migrate/all": {
-            "post": {
+        "/hermandades/{id}/shield": {
+            "get": {
                 "tags": [
                     "Hermandades"
                 ],
-                "summary": "Migrate All Hermandades",
-                "operationId": "migrate_all_hermandades_hermandades_migrate_all_post",
+                "summary": "Get Hermandad Shield",
+                "operationId": "get_hermandad_shield_hermandades__id__shield_get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Id"
+                        }
+                    }
+                ],
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "Successful Response",
                         "content": {
                             "application/json": {
                                 "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hermandades/{id}/suit": {
+            "get": {
+                "tags": [
+                    "Hermandades"
+                ],
+                "summary": "Get Hermandad Suit",
+                "operationId": "get_hermandad_suit_hermandades__id__suit_get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
                             }
                         }
                     }
@@ -207,6 +268,88 @@
                 },
                 "responses": {
                     "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hermandades/populate/all": {
+            "post": {
+                "tags": [
+                    "Hermandades"
+                ],
+                "summary": "Populate All Hermandades",
+                "operationId": "populate_all_hermandades_hermandades_populate_all_post",
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hermandades/migrate/wiki": {
+            "post": {
+                "tags": [
+                    "Hermandades"
+                ],
+                "summary": "Migrate Wiki",
+                "operationId": "migrate_wiki_hermandades_migrate_wiki_post",
+                "parameters": [
+                    {
+                        "name": "day",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/DayEnum"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Day"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "integer"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
                         "description": "Successful Response",
                         "content": {
                             "application/json": {
@@ -562,85 +705,6 @@
                         "content": {
                             "application/json": {
                                 "schema": {}
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/timetables/migrate/day/{day}": {
-            "post": {
-                "tags": [
-                    "Timetables"
-                ],
-                "summary": "Migrate Day",
-                "operationId": "migrate_day_timetables_migrate_day__day__post",
-                "parameters": [
-                    {
-                        "name": "day",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/components/schemas/DayEnum"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/timetables/migrate/hermandad/{her_id}": {
-            "post": {
-                "tags": [
-                    "Timetables"
-                ],
-                "summary": "Migrate Hermandad",
-                "operationId": "migrate_hermandad_timetables_migrate_hermandad__her_id__post",
-                "parameters": [
-                    {
-                        "name": "her_id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "title": "Her Id"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
                             }
                         }
                     }

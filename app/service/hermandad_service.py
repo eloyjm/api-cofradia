@@ -6,6 +6,10 @@ from schema.hermandades import UpdateHermandad
 from typing import List, Tuple
 from models.hermandades import Hermandad
 from util import hermandad_util
+from util import scrapping_util
+from starlette.responses import FileResponse
+import os
+from config.app import config_app
 
 
 class HermandadService:
@@ -46,7 +50,7 @@ class HermandadService:
 
         return hermandad
 
-    def migrate_all_hermandades(self):
+    def populate_all_hermandades(self):
         self.hermandad_repository.delete_all_hermandades()
         hermandades = [
             Hermandad(**hermandad_data)
@@ -91,3 +95,55 @@ class HermandadService:
         except Exception as e:
             logger.error(f"Error during prediction: {e}")
             raise HTTPException(status_code=500, detail=str(e))
+
+    def migrate_wiki(self, day: DayEnum, id: int) -> str:
+        if day:
+            hermandades = self.get_hermandad_by_day(day)
+        elif id:
+            hermandades = [self.get_hermandad_by_id(id)]
+        else:
+            hermandades = self.get_hermandades()
+
+        for hermandad in hermandades:
+            if hermandad.wiki_url:
+                data = scrapping_util.extract_data_wiki(hermandad.wiki_url)
+
+                self.hermandad_repository.update_hermandad_from_wiki(
+                    hermandad, data
+                )
+            else:
+                logger.warning(f"Hermandad {hermandad.name} has no wiki url")
+
+        self.hermandad_repository.commit()
+
+        return "Wiki data migrated successfully"
+
+    def get_hermandad_shield(self, id: int) -> bytes:
+        hermandad = self.get_hermandad_by_id(id)
+        file_location = os.path.join(
+            config_app.shield_path, hermandad.escudo_url
+        )
+
+        if not os.path.exists(file_location):
+            message = f"Shield image for hermandad {id} not found"
+            logger.error(message)
+            raise HTTPException(status_code=404, detail=message)
+
+        return FileResponse(
+            file_location,
+            headers={"Cache-Control": "no-cache, no-store, must-revalidate"},
+        )
+
+    def get_hermandad_suit(self, id: int) -> bytes:
+        hermandad = self.get_hermandad_by_id(id)
+        file_location = os.path.join(config_app.suit_path, hermandad.traje_url)
+
+        if not os.path.exists(file_location):
+            message = f"Suit image for hermandad {id} not found"
+            logger.error(message)
+            raise HTTPException(status_code=404, detail=message)
+
+        return FileResponse(
+            file_location,
+            headers={"Cache-Control": "no-cache, no-store, must-revalidate"},
+        )

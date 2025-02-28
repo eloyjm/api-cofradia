@@ -1,6 +1,9 @@
 from decouple import config
+import os
 
 __version__ = "0.1.0"
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 class APP:
@@ -24,6 +27,13 @@ class APP:
         )
         self.hermandades_data_path = config(
             "HERMANDADES_DATA_PATH", "app/config/hermandades_data.json"
+        )
+
+        self.suit_path = os.path.join(
+            BASE_DIR, config("SUIT_PATH", "app/static/suit")
+        )
+        self.shield_path = os.path.join(
+            BASE_DIR, config("SUIT_PATH", "app/static/shield")
         )
 
 

@@ -80,6 +80,9 @@ def extract_data_wiki(url: str):
 
 def extract_data_dds(url: str):
     f = urllib.request.urlopen(url)
+    if f.getcode() == 404:
+        return [], None
+
     s = BeautifulSoup(f, "lxml")
 
     table = s.find("table", class_="movil")
@@ -91,9 +94,21 @@ def extract_data_dds(url: str):
         if i == 0:
             continue
         if cols[1]:
-            data.append(("CRUZ", cols[0], cols[1]))
+            data.append(
+                {
+                    "entity": "CRUZ",
+                    "time": cols[0],
+                    "location": cols[1],
+                }
+            )
         if cols[2]:
-            data.append(("PALIO", cols[0], cols[2]))
+            data.append(
+                {
+                    "entity": "PALIO",
+                    "time": cols[0],
+                    "location": cols[2],
+                }
+            )
 
     map = s.find("div", class_="mapa")
     map_src = map.find("iframe")

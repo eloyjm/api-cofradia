@@ -11,6 +11,9 @@ class HermandadRepository:
     def __init__(self, db_manager: DatabaseManager):
         self.db = next(db_manager.get_db())
 
+    def commit(self):
+        self.db.commit()
+
     def get_all_hermanades(self) -> List[Hermandad]:
         return self.db.query(Hermandad).all()
 
@@ -39,6 +42,18 @@ class HermandadRepository:
             logger.info(f"Hermandad {hermandad.name} updated")
             return hermandad
         return None
+
+    def update_hermandad_from_wiki(self, hermandad: Hermandad, data: dict):
+        hermandad.description = data["Descripcción"]
+        hermandad.foundation = data["Fundación"]
+        hermandad.members = data["Hermanos"].replace("[cita requerida]", "")
+        hermandad.nazarenos = data["Nazarenos"]
+        hermandad.history = data["Historia"]
+        hermandad.passages_number = data["Pasos"]
+        hermandad.location = data["Localidad"]
+        hermandad.colors = data["Túnica"]
+        hermandad.day_time = data["Día y hora"]
+        hermandad.canonical_seat = data["Sede canónica"]
 
     def create_all_hermandades(
         self, hermandades: List[Hermandad]

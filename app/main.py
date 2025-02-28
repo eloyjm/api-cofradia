@@ -30,7 +30,8 @@ async def lifespan(_: FastAPI):
         db_manager.create_tables()
 
         hermandad_repository = HermandadRepository(db_manager)
-        hermandades_data = json.load(open(config_app.hermandades_data_path))
+        with open(config_app.hermandades_data_path, encoding="utf-8") as file:
+            hermandades_data = json.load(file)
 
         hermandad_service = HermandadService(
             hermandad_repository, hermandades_data

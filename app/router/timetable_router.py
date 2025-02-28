@@ -2,7 +2,6 @@ from config.logging.logger import logger
 from fastapi import APIRouter, Request
 from service.timetable_service import TimetableService
 from schema.timetables import TimetableSchema
-from models.hermandades import DayEnum
 
 router = APIRouter(tags=["Timetables"], prefix="/timetables")
 
@@ -53,19 +52,3 @@ def migrate_all(request: Request):
 
     logger.info("POST /timetables/migrate/all HTTP/1.1 200 OK")
     return timetable_service.migrate_all_timetables()
-
-
-@router.post("/migrate/day/{day}", status_code=200)
-def migrate_day(request: Request, day: DayEnum):
-    timetable_service: TimetableService = request.state.timetable_service
-
-    logger.info(f"POST /timetables/migrate/day/{day} HTTP/1.1 200 OK")
-    return timetable_service.migrate_day_timetables(day)
-
-
-@router.post("/migrate/hermandad/{her_id}", status_code=200)
-def migrate_hermandad(request: Request, her_id: int):
-    timetable_service: TimetableService = request.state.timetable_service
-
-    logger.info(f"POST /timetables/migrate/hermandad/{her_id} HTTP/1.1 200 OK")
-    return timetable_service.migrate_hermandad_timetables(her_id)

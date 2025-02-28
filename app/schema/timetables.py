@@ -1,10 +1,5 @@
 from pydantic import BaseModel
-from enum import Enum as PyEnum
-
-
-class EntityEnum(PyEnum):
-    CRUZ = "CRUZ"
-    PALIO = "PALIO"
+from models.timetables import EntityEnum
 
 
 class TimetableSchema(BaseModel):

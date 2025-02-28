@@ -50,13 +50,23 @@ async def update_hermandad(
     return response
 
 
-@router.post("/migrate/all", status_code=201)
-async def migrate_all_hermandades(request: Request):
+@router.get("/{id}/shield", status_code=200)
+async def get_hermandad_shield(request: Request, id: int):
     hermandad_service: HermandadService = request.state.hermandad_service
 
-    response = hermandad_service.migrate_all_hermandades()
+    response = hermandad_service.get_hermandad_shield(id)
 
-    logger.info("POST /hermandades/migrate/all HTTP/1.1 201 Created")
+    logger.info(f"GET /hermandades/{id}/shield HTTP/1.1 200 OK")
+    return response
+
+
+@router.get("/{id}/suit", status_code=200)
+async def get_hermandad_suit(request: Request, id: int):
+    hermandad_service: HermandadService = request.state.hermandad_service
+
+    response = hermandad_service.get_hermandad_suit(id)
+
+    logger.info(f"GET /hermandades/{id}/suit HTTP/1.1 200 OK")
     return response
 
 
@@ -71,4 +81,26 @@ async def get_hermandad_prediction(
     response = hermandad_service.run_prediction(day, img)
 
     logger.info("GET /prediction HTTP/1.1 200 OK")
+    return response
+
+
+@router.post("/populate/all", status_code=201)
+async def populate_all_hermandades(request: Request):
+    hermandad_service: HermandadService = request.state.hermandad_service
+
+    response = hermandad_service.populate_all_hermandades()
+
+    logger.info("POST /hermandades/populate/all HTTP/1.1 201 Created")
+    return response
+
+
+@router.post("/migrate/wiki", status_code=201)
+async def migrate_wiki(
+    request: Request, day: Optional[DayEnum] = None, id: Optional[int] = None
+):
+    hermandad_service: HermandadService = request.state.hermandad_service
+
+    response = hermandad_service.migrate_wiki(day, id)
+
+    logger.info("GET /hermandades/migrate/wiki HTTP/1.1 201 Created")
     return response
