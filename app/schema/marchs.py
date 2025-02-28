@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class Marcha(BaseModel):
+class MarchSchema(BaseModel):
     name: str
     author: str
     description: str

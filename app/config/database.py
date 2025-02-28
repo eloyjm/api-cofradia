@@ -4,7 +4,6 @@ from decouple import config
 class DATABASE:
     def __init__(self):
         self.postgres_db = config("POSTGRES_DATABASE")
-        self.dbname = config("POSTGRES_DBNAME")
         self.postgres_host = config("PG_HOST")
         self.postgres_port = int(config("PG_PORT"))
         self.postgres_user = config("POSTGRES_USER")

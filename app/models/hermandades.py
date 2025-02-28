@@ -1,25 +1,25 @@
 from enum import Enum
-from sqlalchemy import Column, Enum as EnumColumn, String
+from sqlalchemy import Column, Enum as EnumColumn, String, Integer
 from sqlalchemy.orm import relationship
 from database.postgresdb_manager import db_manager
 
 
 class DayEnum(Enum):
-    DR = 'Domingo de Ramos'
-    LS = 'Lunes Santo'
-    MS = 'Martes Santo'
-    XS = 'Miércoles Santo'
-    JS = 'Jueves Santo'
-    M = 'Madrugá'
-    VS = 'Viernes Santo'
-    SS = 'Sábado Santo'
-    DDR = 'Domingo de Resurrección'
+    DR = "Domingo de Ramos"
+    LS = "Lunes Santo"
+    MS = "Martes Santo"
+    XS = "Miércoles Santo"
+    JS = "Jueves Santo"
+    M = "Madrugá"
+    VS = "Viernes Santo"
+    SS = "Sábado Santo"
+    DDR = "Domingo de Resurrección"
 
 
 class Hermandad(db_manager.base_schemas):
-    __tablename__ = 'hermandades'
+    __tablename__ = "hermandad"
 
-    id = Column(String, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
     description = Column(String)
     foundation = Column(String)
@@ -39,4 +39,4 @@ class Hermandad(db_manager.base_schemas):
     escudo_url = Column(String)
     traje_url = Column(String)
 
-    timetables = relationship("TimeTable", back_populates="hermandad")
+    timetables = relationship("Timetable", back_populates="hermandad")

@@ -12,5 +12,4 @@ if __name__ == "__main__":
         port=port,
         log_level=config_app.log_level.lower(),
         log_config=config_app.logger_config_path,
-        reload=True
     )

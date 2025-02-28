@@ -7,10 +7,16 @@ from config.logging.logger import logger
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from router import hermandad_router
+from router import march_router
+from router import timetable_router
 import os
 from database.postgresdb_manager import db_manager
 from repository.hermandad_repository import HermandadRepository
+from repository.march_repository import MarchRepository
+from repository.timetable_repository import TimetableRepository
 from service.hermandad_service import HermandadService
+from service.march_service import MarchService
+from service.timetable_service import TimetableService
 
 
 @asynccontextmanager
@@ -24,11 +30,23 @@ async def lifespan(_: FastAPI):
         db_manager.create_tables()
 
         hermandad_repository = HermandadRepository(db_manager)
+        hermandades_data = json.load(open(config_app.hermandades_data_path))
 
-        hermandad_service = HermandadService(hermandad_repository)
+        hermandad_service = HermandadService(
+            hermandad_repository, hermandades_data
+        )
+        march_repository = MarchRepository(db_manager)
+        march_service = MarchService(march_repository)
+
+        timetable_repository = TimetableRepository(db_manager)
+        timetable_service = TimetableService(
+            timetable_repository, hermandad_service
+        )
 
         yield {
             "hermandad_service": hermandad_service,
+            "march_service": march_service,
+            "timetable_service": timetable_service,
         }
 
     except Exception as e:
@@ -39,6 +57,7 @@ async def lifespan(_: FastAPI):
 
         logger.info("Shutting down application...")
         db_manager.close_connection()
+
 
 app = FastAPI(
     lifespan=lifespan,
@@ -61,6 +80,8 @@ app.add_middleware(
 )
 
 app.include_router(hermandad_router.router)
+app.include_router(march_router.router)
+app.include_router(timetable_router.router)
 
 # Save the OpenAPI schema when the APP is up
 openapi_data = app.openapi()

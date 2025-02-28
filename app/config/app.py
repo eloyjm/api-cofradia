@@ -14,6 +14,17 @@ class APP:
         self.logger_config_path = config(
             "LOGGER_CONFIG_PATH", "app/config/logging/logging.yaml"
         )
+        self.dds_url = config(
+            "DDS_URL",
+            "https://www.diariodesevilla.es/contenidos/programa-semana-santa-sevilla",  # noqa: E501
+        )
+        self.marchs_url = config(
+            "MARCHS_URL",
+            "https://glissandoo.com/blog/posts/las-marchas-de-procesion-mas-famosas-de-youtube",  # noqa: E501
+        )
+        self.hermandades_data_path = config(
+            "HERMANDADES_DATA_PATH", "app/config/hermandades_data.json"
+        )
 
 
 config_app = APP()

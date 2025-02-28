@@ -3,12 +3,12 @@ from enum import Enum as PyEnum
 
 
 class EntityEnum(PyEnum):
-    CRUZ = 'CRUZ'
-    PALIO = 'PALIO'
+    CRUZ = "CRUZ"
+    PALIO = "PALIO"
 
 
-class TimeTable(BaseModel):
+class TimetableSchema(BaseModel):
     location: str
     time: str
     entity: EntityEnum
-    hermandad_id: str
+    hermandad_id: int

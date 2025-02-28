@@ -1,0 +1,551 @@
+[
+    {
+        "name": "El Amor",
+        "day": "DR",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_del_Amor_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "el_amor.png",
+        "traje_url": "el_amor.png"
+    },
+    {
+        "name": "Jesús Despojado",
+        "day": "DR",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_Jes%C3%BAs_Despojado_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#f6f7c6",
+        "escudo_url": "jesus_despojado.png",
+        "traje_url": "jesus_despojado.png"
+    },
+    {
+        "name": "La Amargura",
+        "day": "DR",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Amargura_(Sevilla)",
+        "color_one": "#E9E7E7",
+        "color_two": "#E9E7E7",
+        "escudo_url": "la_amargura.png",
+        "traje_url": "la_amargura.png"
+    },
+    {
+        "name": "La Borriquita",
+        "day": "DR",
+        "wiki_url": "",
+        "color_one": "#E9E7E7",
+        "color_two": "#E9E7E7",
+        "escudo_url": "la_borriquita.png",
+        "traje_url": "la_borriquita.png"
+    },
+    {
+        "name": "La Cena",
+        "day": "DR",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Cena_(Sevilla)",
+        "color_one": "#E9E7E7",
+        "color_two": "#E9E7E7",
+        "escudo_url": "la_cena.png",
+        "traje_url": "la_cena.png"
+    },
+    {
+        "name": "La Estrella",
+        "day": "DR",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Estrella_(Sevilla)",
+        "color_one": "#211e73",
+        "color_two": "#5e2e77",
+        "escudo_url": "la_estrella.png",
+        "traje_url": "la_estrella.png"
+    },
+    {
+        "name": "La Hiniesta",
+        "day": "DR",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Hiniesta_(Sevilla)",
+        "color_one": "#211e73",
+        "color_two": "#E9E7E7",
+        "escudo_url": "la_hiniesta.png",
+        "traje_url": "la_hiniesta.png"
+    },
+    {
+        "name": "La Paz",
+        "day": "DR",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Paz_(Sevilla)",
+        "color_one": "#E9E7E7",
+        "color_two": "#E9E7E7",
+        "escudo_url": "la_paz.png",
+        "traje_url": "la_paz.png"
+    },
+    {
+        "name": "San Roque",
+        "day": "DR",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_San_Roque_(Sevilla)",
+        "color_one": "#5e2e77",
+        "color_two": "#294429",
+        "escudo_url": "san_roque.png",
+        "traje_url": "san_roque.png"
+    },
+    {
+        "name": "El Museo",
+        "day": "LS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_del_Museo_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "el_museo.png",
+        "traje_url": "el_museo.png"
+    },
+    {
+        "name": "La Redención",
+        "day": "LS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Redenci%C3%B3n_(Sevilla)",
+        "color_one": "#5e2e77",
+        "color_two": "#294429",
+        "escudo_url": "la_redencion.png",
+        "traje_url": "la_redencion.png"
+    },
+    {
+        "name": "Las Aguas",
+        "day": "LS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_las_Aguas_(Sevilla)",
+        "color_one": "#5e2e77",
+        "color_two": "#E9E7E7",
+        "escudo_url": "las_aguas.png",
+        "traje_url": "las_aguas.png"
+    },
+    {
+        "name": "Las Penas",
+        "day": "LS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_las_Penas_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "las_penas.png",
+        "traje_url": "las_penas.png"
+    },
+    {
+        "name": "San Gonzalo",
+        "day": "LS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_San_Gonzalo_(Sevilla)",
+        "color_one": "#E9E7E7",
+        "color_two": "#E9E7E7",
+        "escudo_url": "san_gonzalo.png",
+        "traje_url": "san_gonzalo.png"
+    },
+    {
+        "name": "San Pablo",
+        "day": "LS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_San_Pablo_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#f6f7c6",
+        "escudo_url": "san_pablo.png",
+        "traje_url": "san_pablo.png"
+    },
+    {
+        "name": "Santa Genoveva",
+        "day": "LS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_Santa_Genoveva_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#E9E7E7",
+        "escudo_url": "santa_genoveva.png",
+        "traje_url": "santa_genoveva.png"
+    },
+    {
+        "name": "Santa Marta",
+        "day": "LS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_Santa_Marta_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "santa_marta.png",
+        "traje_url": "santa_marta.png"
+    },
+    {
+        "name": "Vera Cruz",
+        "day": "LS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Vera_Cruz_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "vera_cruz.png",
+        "traje_url": "vera_cruz.png"
+    },
+    {
+        "name": "El Cerro",
+        "day": "MS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_del_Cerro_(Sevilla)",
+        "color_one": "#e63939",
+        "color_two": "#E9E7E7",
+        "escudo_url": "el_cerro.png",
+        "traje_url": "el_cerro.png"
+    },
+    {
+        "name": "El Dulce Nombre",
+        "day": "MS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_del_Dulce_Nombre_(Sevilla)",
+        "color_one": "#E9E7E7",
+        "color_two": "#E9E7E7",
+        "escudo_url": "el_dulce_nombre.png",
+        "traje_url": "el_dulce_nombre.png"
+    },
+    {
+        "name": "La Candelaria",
+        "day": "MS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Candelaria_(Sevilla)",
+        "color_one": "#E9E7E7",
+        "color_two": "#E9E7E7",
+        "escudo_url": "la_candelaria.png",
+        "traje_url": "la_candelaria.png"
+    },
+    {
+        "name": "Los Estudiantes",
+        "day": "MS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_los_Estudiantes_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "los_estudiantes.png",
+        "traje_url": "los_estudiantes.png"
+    },
+    {
+        "name": "Los Javieres",
+        "day": "MS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_los_Javieres_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "los_javieres.png",
+        "traje_url": "los_javieres.png"
+    },
+    {
+        "name": "San Benito",
+        "day": "MS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_San_Benito_(Sevilla)",
+        "color_one": "#5e2e77",
+        "color_two": "#E9E7E7",
+        "escudo_url": "san_benito.png",
+        "traje_url": "san_benito.png"
+    },
+    {
+        "name": "San Esteban",
+        "day": "MS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_San_Esteban_(Sevilla)",
+        "color_one": "#211e73",
+        "color_two": "#f6f7c6",
+        "escudo_url": "san_esteban.png",
+        "traje_url": "san_esteban.png"
+    },
+    {
+        "name": "Santa Cruz",
+        "day": "MS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_Santa_Cruz_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "santa_cruz.png",
+        "traje_url": "santa_cruz.png"
+    },
+    {
+        "name": "Cristo de Burgos",
+        "day": "XS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_del_Cristo_de_Burgos_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "cristo_de_burgos.png",
+        "traje_url": "cristo_de_burgos.png"
+    },
+    {
+        "name": "El Baratillo",
+        "day": "XS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_del_Baratillo_(Sevilla)",
+        "color_one": "#211e73",
+        "color_two": "#211e73",
+        "escudo_url": "el_baratillo.png",
+        "traje_url": "el_baratillo.png"
+    },
+    {
+        "name": "El Buen Fin",
+        "day": "XS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_del_Buen_Fin_(Sevilla)",
+        "color_one": "#694d2e",
+        "color_two": "#694d2e",
+        "escudo_url": "el_buen_fin.png",
+        "traje_url": "el_buen_fin.png"
+    },
+    {
+        "name": "El Carmen",
+        "day": "XS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_del_Carmen_(Sevilla)",
+        "color_one": "#694d2e",
+        "color_two": "#E9E7E7",
+        "escudo_url": "el_carmen.png",
+        "traje_url": "el_carmen.png"
+    },
+    {
+        "name": "La Lanzada",
+        "day": "XS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Lanzada_(Sevilla)",
+        "color_one": "#e63939",
+        "color_two": "#f6f7c6",
+        "escudo_url": "la_lanzada.png",
+        "traje_url": "la_lanzada.png"
+    },
+    {
+        "name": "La Sed",
+        "day": "XS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Sed_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "la_sed.png",
+        "traje_url": "la_sed.png"
+    },
+    {
+        "name": "Las Siete Palabras",
+        "day": "XS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_las_Siete_Palabras_(Sevilla)",
+        "color_one": "#e63939",
+        "color_two": "#E9E7E7",
+        "escudo_url": "las_siete_palabras.png",
+        "traje_url": "las_siete_palabras.png"
+    },
+    {
+        "name": "Los Panaderos",
+        "day": "XS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_los_Panaderos_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "los_panaderos.png",
+        "traje_url": "los_panaderos.png"
+    },
+    {
+        "name": "San Bernardo",
+        "day": "XS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_San_Bernardo_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#5e2e77",
+        "escudo_url": "san_bernardo.png",
+        "traje_url": "san_bernardo.png"
+    },
+    {
+        "name": "El Valle",
+        "day": "JS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_del_Valle_(Sevilla)",
+        "color_one": "#5e2e77",
+        "color_two": "#5e2e77",
+        "escudo_url": "el_valle.png",
+        "traje_url": "el_valle.png"
+    },
+    {
+        "name": "La Exaltación",
+        "day": "JS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Exaltaci%C3%B3n_(Sevilla)",
+        "color_one": "#5e2e77",
+        "color_two": "#E9E7E7",
+        "escudo_url": "la_exaltacion.png",
+        "traje_url": "la_exaltacion.png"
+    },
+    {
+        "name": "La Pasión",
+        "day": "JS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_Pasi%C3%B3n_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "la_pasion.png",
+        "traje_url": "la_pasion.png"
+    },
+    {
+        "name": "La Quinta Angustia",
+        "day": "JS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Quinta_Angustia_(Sevilla)",
+        "color_one": "#5e2e77",
+        "color_two": "#5e2e77",
+        "escudo_url": "la_quinta_angustia.png",
+        "traje_url": "la_quinta_angustia.png"
+    },
+    {
+        "name": "Las Cigarreras",
+        "day": "JS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_las_Cigarreras_(Sevilla)",
+        "color_one": "#5e2e77",
+        "color_two": "#5e2e77",
+        "escudo_url": "las_cigarreras.png",
+        "traje_url": "las_cigarreras.png"
+    },
+    {
+        "name": "Los Negritos",
+        "day": "JS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_los_Negritos_(Sevilla)",
+        "color_one": "#E9E7E7",
+        "color_two": "#211e73",
+        "escudo_url": "los_negritos.png",
+        "traje_url": "los_negritos.png"
+    },
+    {
+        "name": "Montesión",
+        "day": "JS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_Monte-Sion",
+        "color_one": "#000000",
+        "color_two": "#E9E7E7",
+        "escudo_url": "montesion.png",
+        "traje_url": "montesion.png"
+    },
+    {
+        "name": "El Calvario",
+        "day": "M",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_del_Calvario_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "el_calvario.png",
+        "traje_url": "el_calvario.png"
+    },
+    {
+        "name": "El Gran Poder",
+        "day": "M",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_Jes%C3%BAs_del_Gran_Poder",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "el_gran_poder.png",
+        "traje_url": "el_gran_poder.png"
+    },
+    {
+        "name": "El Silencio",
+        "day": "M",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_del_Silencio_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "el_silencio.png",
+        "traje_url": "el_silencio.png"
+    },
+    {
+        "name": "La Esperanza de Triana",
+        "day": "M",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Esperanza_de_Triana",
+        "color_one": "#5e2e77",
+        "color_two": "#294429",
+        "escudo_url": "la_esperanza_de_triana.png",
+        "traje_url": "la_esperanza_de_triana.png"
+    },
+    {
+        "name": "La Macarena",
+        "day": "M",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Macarena_(Sevilla)",
+        "color_one": "#5e2e77",
+        "color_two": "#294429",
+        "escudo_url": "la_macarena.png",
+        "traje_url": "la_macarena.png"
+    },
+    {
+        "name": "Los Gitanos",
+        "day": "M",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_los_Gitanos_(Sevilla)",
+        "color_one": "#5e2e77",
+        "color_two": "#E9E7E7",
+        "escudo_url": "los_gitanos.png",
+        "traje_url": "los_gitanos.png"
+    },
+    {
+        "name": "El Cachorro",
+        "day": "VS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_del_Cachorro_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "el_cachorro.png",
+        "traje_url": "el_cachorro.png"
+    },
+    {
+        "name": "La Carretería",
+        "day": "VS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Carreter%C3%ADa_(Sevilla)",
+        "color_one": "#211e73",
+        "color_two": "#211e73",
+        "escudo_url": "la_carreteria.png",
+        "traje_url": "la_carreteria.png"
+    },
+    {
+        "name": "La O",
+        "day": "VS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_O_(Sevilla)",
+        "color_one": "#5e2e77",
+        "color_two": "#5e2e77",
+        "escudo_url": "la_o.png",
+        "traje_url": "la_o.png"
+    },
+    {
+        "name": "La Sagrada Mortaja",
+        "day": "VS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Sagrada_Mortaja_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#5e2e77",
+        "escudo_url": "la_sagrada_mortaja.png",
+        "traje_url": "la_sagrada_mortaja.png"
+    },
+    {
+        "name": "La Soledad de San Buenaventura",
+        "day": "VS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Soledad_de_San_Buenaventura_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#E9E7E7",
+        "escudo_url": "la_soledad_de_san_buenaventura.png",
+        "traje_url": "la_soledad_de_san_buenaventura.png"
+    },
+    {
+        "name": "Montserrat",
+        "day": "VS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_Montserrat_(Sevilla)",
+        "color_one": "#211e73",
+        "color_two": "#E9E7E7",
+        "escudo_url": "montserrat.png",
+        "traje_url": "montserrat.png"
+    },
+    {
+        "name": "Las Tres Caídas",
+        "day": "VS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_las_Tres_Ca%C3%ADdas_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "las_tres_caidas.png",
+        "traje_url": "las_tres_caidas.png"
+    },
+    {
+        "name": "El Santo Entierro",
+        "day": "SS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_del_Santo_Entierro_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "el_santo_entierro.png",
+        "traje_url": "el_santo_entierro.png"
+    },
+    {
+        "name": "El Sol",
+        "day": "SS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_del_Sol_(Sevilla)",
+        "color_one": "#294429",
+        "color_two": "#294429",
+        "escudo_url": "el_sol.png",
+        "traje_url": "el_sol.png"
+    },
+    {
+        "name": "La Soledad De San Lorenzo",
+        "day": "SS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Soledad_de_San_Lorenzo_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#E9E7E7",
+        "escudo_url": "la_soledad_de_san_lorenzo.png",
+        "traje_url": "la_soledad_de_san_lorenzo.png"
+    },
+    {
+        "name": "La Trinidad",
+        "day": "SS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Trinidad_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#E9E7E7",
+        "escudo_url": "la_trinidad.png",
+        "traje_url": "la_trinidad.png"
+    },
+    {
+        "name": "Los Servitas",
+        "day": "SS",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_los_Servitas_(Sevilla)",
+        "color_one": "#000000",
+        "color_two": "#000000",
+        "escudo_url": "los_servitas.png",
+        "traje_url": "los_servitas.png"
+    },
+    {
+        "name": "La Resurrección",
+        "day": "DDR",
+        "wiki_url": "https://es.wikipedia.org/wiki/Hermandad_de_la_Resurrecci%C3%B3n_(Sevilla)",
+        "color_one": "#E9E7E7",
+        "color_two": "#E9E7E7",
+        "escudo_url": "la_resurreccion.png",
+        "traje_url": "la_resurreccion.png"
+    }
+]
