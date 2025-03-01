@@ -256,3 +256,6 @@ data
 full_data/
 full_data
 .full_data/
+
+training/models
+training/graphics

@@ -1,0 +1,1033 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "CofradIA API",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/hermandades": {
+            "get": {
+                "tags": [
+                    "Hermandades"
+                ],
+                "summary": "Get Hermandades",
+                "operationId": "get_hermandades_hermandades_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hermandades/day/{day}": {
+            "get": {
+                "tags": [
+                    "Hermandades"
+                ],
+                "summary": "Get Hermandad By Day",
+                "operationId": "get_hermandad_by_day_hermandades_day__day__get",
+                "parameters": [
+                    {
+                        "name": "day",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/DayEnum"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hermandades/{id}": {
+            "get": {
+                "tags": [
+                    "Hermandades"
+                ],
+                "summary": "Get Hermandad By Id",
+                "operationId": "get_hermandad_by_id_hermandades__id__get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Hermandades"
+                ],
+                "summary": "Update Hermandad",
+                "operationId": "update_hermandad_hermandades__id__patch",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateHermandad"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hermandades/{id}/shield": {
+            "get": {
+                "tags": [
+                    "Hermandades"
+                ],
+                "summary": "Get Hermandad Shield",
+                "operationId": "get_hermandad_shield_hermandades__id__shield_get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hermandades/{id}/suit": {
+            "get": {
+                "tags": [
+                    "Hermandades"
+                ],
+                "summary": "Get Hermandad Suit",
+                "operationId": "get_hermandad_suit_hermandades__id__suit_get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hermandades/prediction": {
+            "post": {
+                "tags": [
+                    "Hermandades"
+                ],
+                "summary": "Hermandad Prediction",
+                "operationId": "hermandad_prediction_hermandades_prediction_post",
+                "parameters": [
+                    {
+                        "name": "day",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/DayEnum"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Day"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_hermandad_prediction_hermandades_prediction_post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hermandades/populate/all": {
+            "post": {
+                "tags": [
+                    "Hermandades"
+                ],
+                "summary": "Populate All Hermandades",
+                "operationId": "populate_all_hermandades_hermandades_populate_all_post",
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hermandades/migrate/wiki": {
+            "post": {
+                "tags": [
+                    "Hermandades"
+                ],
+                "summary": "Migrate Wiki",
+                "operationId": "migrate_wiki_hermandades_migrate_wiki_post",
+                "parameters": [
+                    {
+                        "name": "day",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/DayEnum"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Day"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "integer"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/marchs": {
+            "get": {
+                "tags": [
+                    "Marchs"
+                ],
+                "summary": "Get Marchs",
+                "operationId": "get_marchs_marchs_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Marchs"
+                ],
+                "summary": "Create March",
+                "operationId": "create_march_marchs_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MarchSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/marchs/{id}": {
+            "get": {
+                "tags": [
+                    "Marchs"
+                ],
+                "summary": "Get March By Id",
+                "operationId": "get_march_by_id_marchs__id__get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Marchs"
+                ],
+                "summary": "Delete March",
+                "operationId": "delete_march_marchs__id__delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/marchs/migrate/all": {
+            "post": {
+                "tags": [
+                    "Marchs"
+                ],
+                "summary": "Migrate All",
+                "operationId": "migrate_all_marchs_migrate_all_post",
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/timetables": {
+            "get": {
+                "tags": [
+                    "Timetables"
+                ],
+                "summary": "Get Timetables",
+                "operationId": "get_timetables_timetables_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Timetables"
+                ],
+                "summary": "Create Timetable",
+                "operationId": "create_timetable_timetables_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TimetableSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/timetables/{id}": {
+            "get": {
+                "tags": [
+                    "Timetables"
+                ],
+                "summary": "Get Timetables By Id",
+                "operationId": "get_timetables_by_id_timetables__id__get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Timetables"
+                ],
+                "summary": "Delete Timetable",
+                "operationId": "delete_timetable_timetables__id__delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/timetables/hermandades/{her_id}": {
+            "get": {
+                "tags": [
+                    "Timetables"
+                ],
+                "summary": "Get Timetables By Hermandad",
+                "operationId": "get_timetables_by_hermandad_timetables_hermandades__her_id__get",
+                "parameters": [
+                    {
+                        "name": "her_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Her Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/timetables/migrate/all": {
+            "post": {
+                "tags": [
+                    "Timetables"
+                ],
+                "summary": "Migrate All",
+                "operationId": "migrate_all_timetables_migrate_all_post",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Body_hermandad_prediction_hermandades_prediction_post": {
+                "properties": {
+                    "img": {
+                        "type": "string",
+                        "format": "binary",
+                        "title": "Img"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "img"
+                ],
+                "title": "Body_hermandad_prediction_hermandades_prediction_post"
+            },
+            "DayEnum": {
+                "type": "string",
+                "enum": [
+                    "Domingo de Ramos",
+                    "Lunes Santo",
+                    "Martes Santo",
+                    "Mi\u00e9rcoles Santo",
+                    "Jueves Santo",
+                    "Madrug\u00e1",
+                    "Viernes Santo",
+                    "S\u00e1bado Santo",
+                    "Domingo de Resurrecci\u00f3n"
+                ],
+                "title": "DayEnum"
+            },
+            "EntityEnum": {
+                "type": "string",
+                "enum": [
+                    "CRUZ",
+                    "PALIO"
+                ],
+                "title": "EntityEnum"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "MarchSchema": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "author": {
+                        "type": "string",
+                        "title": "Author"
+                    },
+                    "description": {
+                        "type": "string",
+                        "title": "Description"
+                    },
+                    "url": {
+                        "type": "string",
+                        "title": "Url"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "author",
+                    "description",
+                    "url"
+                ],
+                "title": "MarchSchema"
+            },
+            "TimetableSchema": {
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "title": "Location"
+                    },
+                    "time": {
+                        "type": "string",
+                        "title": "Time"
+                    },
+                    "entity": {
+                        "$ref": "#/components/schemas/EntityEnum"
+                    },
+                    "hermandad_id": {
+                        "type": "integer",
+                        "title": "Hermandad Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "location",
+                    "time",
+                    "entity",
+                    "hermandad_id"
+                ],
+                "title": "TimetableSchema"
+            },
+            "UpdateHermandad": {
+                "properties": {
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Description"
+                    },
+                    "foundation": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Foundation"
+                    },
+                    "members": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Members"
+                    },
+                    "nazarenos": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Nazarenos"
+                    },
+                    "history": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "History"
+                    },
+                    "passages_number": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Passages Number"
+                    },
+                    "location": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Location"
+                    },
+                    "colors": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Colors"
+                    },
+                    "color_one": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Color One"
+                    },
+                    "color_two": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Color Two"
+                    },
+                    "day_time": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Day Time"
+                    },
+                    "canonical_seat": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Canonical Seat"
+                    },
+                    "wiki_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Wiki Url"
+                    },
+                    "route_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Route Url"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "description",
+                    "foundation",
+                    "members",
+                    "nazarenos",
+                    "history",
+                    "passages_number",
+                    "location",
+                    "colors",
+                    "color_one",
+                    "color_two",
+                    "day_time",
+                    "canonical_seat",
+                    "wiki_url",
+                    "route_url"
+                ],
+                "title": "UpdateHermandad"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        }
+    }
+}
