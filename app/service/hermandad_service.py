@@ -120,12 +120,15 @@ class HermandadService:
 
     def get_hermandad_shield(self, id: int) -> bytes:
         hermandad = self.get_hermandad_by_id(id)
-        file_location = os.path.join(
-            config_app.shield_path, hermandad.escudo_url
-        )
 
+        path_location = os.path.normpath(
+            os.path.join(config_app.base_path, config_app.shield_path)
+        )
+        file_location = os.path.join(path_location, hermandad.shield_path)
         if not os.path.exists(file_location):
-            message = f"Shield image for hermandad {id} not found"
+            message = (
+                f"Shield image for hermandad {id} not found: {file_location}"
+            )
             logger.error(message)
             raise HTTPException(status_code=404, detail=message)
 
@@ -136,10 +139,15 @@ class HermandadService:
 
     def get_hermandad_suit(self, id: int) -> bytes:
         hermandad = self.get_hermandad_by_id(id)
-        file_location = os.path.join(config_app.suit_path, hermandad.traje_url)
+        path_location = os.path.normpath(
+            os.path.join(config_app.base_path, config_app.suit_path)
+        )
+        file_location = os.path.join(path_location, hermandad.suit_path)
 
         if not os.path.exists(file_location):
-            message = f"Suit image for hermandad {id} not found"
+            message = (
+                f"Suit image for hermandad {id} not found: {file_location}"
+            )
             logger.error(message)
             raise HTTPException(status_code=404, detail=message)
 

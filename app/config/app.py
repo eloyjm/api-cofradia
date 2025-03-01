@@ -29,12 +29,11 @@ class APP:
             "HERMANDADES_DATA_PATH", "app/config/hermandades_data.json"
         )
 
-        self.suit_path = os.path.join(
-            BASE_DIR, config("SUIT_PATH", "app/static/suit")
-        )
-        self.shield_path = os.path.join(
-            BASE_DIR, config("SUIT_PATH", "app/static/shield")
-        )
+        self.suit_path = config("SUIT_PATH", "static/images/suit")
+
+        self.shield_path = config("SHIELD_PATH", "static/images/shield")
+
+        self.base_path = BASE_DIR
 
 
 config_app = APP()
