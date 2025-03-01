@@ -70,15 +70,15 @@ async def get_hermandad_suit(request: Request, id: int):
     return response
 
 
-@router.get("/prediction", status_code=200)
-async def get_hermandad_prediction(
+@router.post("/prediction", status_code=200)
+async def hermandad_prediction(
     request: Request,
     day: Optional[DayEnum] = None,
     img: UploadFile = File(...),
 ):
     hermandad_service: HermandadService = request.state.hermandad_service
 
-    response = hermandad_service.run_prediction(day, img)
+    response = await hermandad_service.run_prediction(day, img)
 
     logger.info("GET /prediction HTTP/1.1 200 OK")
     return response

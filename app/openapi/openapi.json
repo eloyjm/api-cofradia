@@ -232,12 +232,12 @@
             }
         },
         "/hermandades/prediction": {
-            "get": {
+            "post": {
                 "tags": [
                     "Hermandades"
                 ],
-                "summary": "Get Hermandad Prediction",
-                "operationId": "get_hermandad_prediction_hermandades_prediction_get",
+                "summary": "Hermandad Prediction",
+                "operationId": "hermandad_prediction_hermandades_prediction_post",
                 "parameters": [
                     {
                         "name": "day",
@@ -261,7 +261,7 @@
                     "content": {
                         "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/Body_get_hermandad_prediction_hermandades_prediction_get"
+                                "$ref": "#/components/schemas/Body_hermandad_prediction_hermandades_prediction_post"
                             }
                         }
                     }
@@ -714,7 +714,7 @@
     },
     "components": {
         "schemas": {
-            "Body_get_hermandad_prediction_hermandades_prediction_get": {
+            "Body_hermandad_prediction_hermandades_prediction_post": {
                 "properties": {
                     "img": {
                         "type": "string",
@@ -726,7 +726,7 @@
                 "required": [
                     "img"
                 ],
-                "title": "Body_get_hermandad_prediction_hermandades_prediction_get"
+                "title": "Body_hermandad_prediction_hermandades_prediction_post"
             },
             "DayEnum": {
                 "type": "string",

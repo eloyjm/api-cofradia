@@ -7,8 +7,9 @@ from config.logging.logger import logger
 from fastapi import HTTPException
 from typing import List
 
-#  import tensorflow_hub as hub
-#  import tensorflow as tf  # type: ignore
+import tensorflow_hub as hub
+
+import tensorflow as tf
 
 
 async def categorize_image(img, full_model, day=None) -> List:
@@ -19,7 +20,7 @@ async def categorize_image(img, full_model, day=None) -> List:
 
         if full_model:
             model_path = os.path.join(
-                current_dir, "ia", "models", "FULLDENSENET100.h5"
+                current_dir, "app", "ai", "models", "FULLDENSENET100.h5"
             )
         else:
             if not day:
@@ -29,7 +30,8 @@ async def categorize_image(img, full_model, day=None) -> List:
 
             model_path = os.path.join(
                 current_dir,
-                "ia",
+                "app",
+                "ai",
                 "models",
                 day._name_,
                 f"{day._name_}DENSENET100.h5",
