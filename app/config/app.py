@@ -35,5 +35,12 @@ class APP:
 
         self.base_path = BASE_DIR
 
+        self.access_token_expiration = int(
+            config("ACCESS_TOKEN_EXPIRATION", "30")
+        )
+
+        self.secret_key = config("SECRET_KEY")
+        self.algorithm = config("ALGORITHM")
+
 
 config_app = APP()

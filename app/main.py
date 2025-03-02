@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from router import hermandad_router
 from router import march_router
 from router import timetable_router
+from router import user_router
 import os
 from database.postgresdb_manager import db_manager
 from repository.hermandad_repository import HermandadRepository
@@ -17,6 +18,8 @@ from repository.timetable_repository import TimetableRepository
 from service.hermandad_service import HermandadService
 from service.march_service import MarchService
 from service.timetable_service import TimetableService
+from repository.user_repository import UserRepository
+from service.user_service import UserService
 
 
 @asynccontextmanager
@@ -44,10 +47,14 @@ async def lifespan(_: FastAPI):
             timetable_repository, hermandad_service
         )
 
+        user_repository = UserRepository(db_manager)
+        user_service = UserService(user_repository)
+
         yield {
             "hermandad_service": hermandad_service,
             "march_service": march_service,
             "timetable_service": timetable_service,
+            "user_service": user_service,
         }
 
     except Exception as e:
@@ -83,3 +90,4 @@ app.add_middleware(
 app.include_router(hermandad_router.router)
 app.include_router(march_router.router)
 app.include_router(timetable_router.router)
+app.include_router(user_router.router)
