@@ -6,3 +6,9 @@ run-local:
 
 flake8-lint:
 	poetry run flake8 .
+
+build:
+	docker build -t cofradia-api Dockerfile .
+
+run:
+	docker-compose up --build

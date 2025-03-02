@@ -1,26 +1,43 @@
-# docker-compose.yml
-version: '3.11'
+version: '3.8'
+
 services:
-  api:
-    container_name: api-cofradia
+  cofradia_db:
+    image: postgres:16.0
+    container_name: cofradia_db
+    environment:
+      POSTGRES_DB: cofradia_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - cofradia_db_data:/var/lib/postgresql/data
+    networks:
+      - cofradia_network
+    ports:
+      - "5432:5432"
+
+  app:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: cofradia_api
+    environment:
+      POSTGRES_HOST: cofradia_db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: <USER>
+      POSTGRES_PASSWORD: <PASSWORD>
+      POSTGRES_DB: cofradia_db
+    depends_on:
+      - cofradia_db
+    networks:
+      - cofradia_network
     ports:
       - "8000:8000"
-    env_file:
-      - src/.env
-    depends_on:
-      - db
+    command: ["python", "app"]
 
-  db:
-    container_name: db
-    image: postgres:16.0
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: cofradia
-      POSTGRES_PORT: 5432
+networks:
+  cofradia_network:
+    driver: bridge
 
+volumes:
+  cofradia_db_data:
+    driver: local
