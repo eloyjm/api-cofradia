@@ -1,5 +1,6 @@
 from decouple import config
 import os
+from fastapi.security import OAuth2PasswordBearer
 
 __version__ = "0.1.0"
 
@@ -34,6 +35,14 @@ class APP:
         self.shield_path = config("SHIELD_PATH", "static/images/shield")
 
         self.base_path = BASE_DIR
+
+        self.access_token_expiration = int(
+            config("ACCESS_TOKEN_EXPIRATION", "30")
+        )
+
+        self.secret_key = config("SECRET_KEY")
+        self.algorithm = config("ALGORITHM")
+        self.oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 
 config_app = APP()
