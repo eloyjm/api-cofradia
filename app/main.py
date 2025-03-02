@@ -83,8 +83,3 @@ app.add_middleware(
 app.include_router(hermandad_router.router)
 app.include_router(march_router.router)
 app.include_router(timetable_router.router)
-
-# Save the OpenAPI schema when the APP is up
-openapi_data = app.openapi()
-with open(config_app.openapi_path, "w") as file:
-    json.dump(openapi_data, file, indent=4)
