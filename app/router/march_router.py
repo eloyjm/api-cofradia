@@ -1,6 +1,7 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Depends
 from service.march_service import MarchService
 from schema.marchs import MarchSchema
+from config.app import config_app
 
 router = APIRouter(tags=["Marchs"], prefix="/marchs")
 
@@ -42,7 +43,9 @@ async def delete_march(request: Request, id: int):
 
 
 @router.post("/migrate/all", status_code=201)
-async def migrate_all(request: Request):
+async def migrate_all(
+    request: Request, oauth=Depends(config_app.oauth2_scheme)
+):
     march_service: MarchService = request.state.march_service
 
     response = march_service.migrate_all()

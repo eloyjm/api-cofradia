@@ -1,6 +1,7 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Depends
 from service.timetable_service import TimetableService
 from schema.timetables import TimetableSchema
+from config.app import config_app
 
 router = APIRouter(tags=["Timetables"], prefix="/timetables")
 
@@ -41,7 +42,7 @@ def delete_timetable(request: Request, id: int):
 
 
 @router.post("/migrate/all", status_code=200)
-def migrate_all(request: Request):
+def migrate_all(request: Request, oauth=Depends(config_app.oauth2_scheme)):
     timetable_service: TimetableService = request.state.timetable_service
 
     return timetable_service.migrate_all_timetables()

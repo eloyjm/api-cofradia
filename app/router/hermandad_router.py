@@ -1,8 +1,9 @@
-from fastapi import APIRouter, Request, UploadFile, File
+from fastapi import APIRouter, Request, UploadFile, File, Depends
 from service.hermandad_service import HermandadService
 from schema.hermandades import UpdateHermandad
 from models.hermandades import DayEnum
 from typing import Optional
+from config.app import config_app
 
 router = APIRouter(tags=["Hermandades"], prefix="/hermandades")
 
@@ -77,7 +78,9 @@ async def hermandad_prediction(
 
 
 @router.post("/populate/all", status_code=201)
-async def populate_all_hermandades(request: Request):
+async def populate_all_hermandades(
+    request: Request, oauth=Depends(config_app.oauth2_scheme)
+):
     hermandad_service: HermandadService = request.state.hermandad_service
 
     response = hermandad_service.populate_all_hermandades()
@@ -87,7 +90,10 @@ async def populate_all_hermandades(request: Request):
 
 @router.post("/migrate/wiki", status_code=201)
 async def migrate_wiki(
-    request: Request, day: Optional[DayEnum] = None, id: Optional[int] = None
+    request: Request,
+    day: Optional[DayEnum] = None,
+    id: Optional[int] = None,
+    oauth=Depends(config_app.oauth2_scheme),
 ):
     hermandad_service: HermandadService = request.state.hermandad_service
 

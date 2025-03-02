@@ -29,3 +29,9 @@ def create_access_token(username: str) -> str:
     return jwt.encode(
         data, config_app.secret_key, algorithm=config_app.algorithm
     )
+
+
+def decode_access_token(token: str) -> dict:
+    return jwt.decode(
+        token, config_app.secret_key, algorithms=[config_app.algorithm]
+    )

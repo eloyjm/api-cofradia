@@ -4,6 +4,7 @@ from schema.users import UserSchema
 from service.user_service import UserService
 from fastapi.security import OAuth2PasswordRequestForm
 
+
 router = APIRouter(tags=["Users"])
 
 
@@ -16,7 +17,7 @@ async def sign_up(request: Request, user: UserSchema):
     return response
 
 
-@router.post("/sign-in", status_code=200)
+@router.post("/login", status_code=200)
 async def sign_in(
     request: Request,
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
